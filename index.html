@@ -238,6 +238,7 @@ a.cell{text-decoration:none}
   .cell{font-size:13.5px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.terrain-intro{margin:-4px 0 8px;color:var(--mute);font-size:15px;max-width:60ch}
 </style>
 </head>
 <body>
@@ -259,6 +260,7 @@ window.SSIAP_META = [
   {"id": "E", "title": "Le Système de Sécurité Incendie", "short": "Le SSI", "tags": "Sécurité Incendie · Agent de service", "min": 32, "expected": 41, "desc": "Collecter, traiter, mettre en sécurité : comprendre l'architecture du SSI, lire ses voyants et connaître les limites de son niveau d'accès."},
   {"id": "F", "title": "Les moyens de secours", "short": "Moyens de secours", "tags": "Sécurité Incendie · Agent de service", "min": 32, "expected": 39, "desc": "Des bouches d'incendie au sprinkler : ce que chaque moyen fait, qui peut l'utiliser, et ce que l'agent vérifie en ronde."},
   {"id": "G", "title": "Rôle et missions de l'agent SSIAP 1", "short": "Rôles & missions", "tags": "Sécurité Incendie · Agent de service", "min": 35, "expected": 62, "desc": "Du cadre réglementaire au geste professionnel : les sept missions, la ronde, les documents du poste, et la conduite à tenir face au feu."},
+  {"id": "OF", "title": "Questions d'examen officiel", "short": "Examen officiel", "tags": "QCM projetés en formation", "min": null, "expected": null, "desc": "Les questions du QCM projeté en salle, avec la correction du formateur."},
   {"id": "Z", "title": "Complément (rédigé par Claude)", "short": "Questions complémentaires", "tags": "À vérifier avec ton formateur", "min": null, "expected": null, "complement": true, "desc": "Questions rédigées d'après le programme officiel (arrêté du 2 mai 2005), en plus de celles de ton centre."}
 ];
 </script>
@@ -885,6 +887,583 @@ window.SSIAP_META = [
   {"t": "Rôles et missions de l'agent", "q": "Lors de l'épreuve pratique de ronde, le candidat doit à la fin :", "o": ["Renseigner la main courante sur une anomalie constatée", "Rédiger un mémoire", "Passer un oral de 30 minutes", "Éteindre un feu réel"], "a": [0], "e": "La ronde comporte des anomalies, la découverte d'un sinistre et des questions du jury."}
 ] };
 </script>
+<!-- MODULE OF : Questions d'examen officiel (QCM projetés en formation, corrections du formateur) -->
+<script>
+// Ajouter les prochaines questions officielles à la fin de cette liste, même format.
+(window.SSIAP_MODULES = window.SSIAP_MODULES || {}).OF = { questions: [
+  {"q": "Parmi ces propositions, quels sont les différents types de détecteurs automatiques d'incendie ?", "o": ["Thermostatique", "Tactile", "Thermovélocimétrique", "Olfactif", "Optique", "Aucune des réponses précédentes"], "a": [0, 2, 4], "e": "Thermostatique : réagit à un seuil de température. Thermovélocimétrique : réagit à une montée rapide de la température. Optique : réagit à la fumée. Il n'existe pas de détecteur olfactif ni tactile.", "t": "Détection"},
+  {"q": "Indiquer ce que l'on doit inscrire sur la main courante ?", "o": ["Les alarmes feu", "Le nom des agents de sécurité incendie présents", "Les départs et retours de ronde", "L'heure d'arrivée et de départ du chef d'établissement", "La prise et la fin de service", "Aucune des réponses précédentes"], "a": [0, 1, 2, 4], "e": "La main courante retrace le service de sécurité : prise et fin de service, agents présents, rondes, alarmes et tout événement. Les allées et venues du chef d'établissement n'y figurent pas.", "t": "Main courante"},
+  {"q": "Dans un I.G.H, l'alerte extérieure consiste à :", "o": ["Demander l'intervention du service de sécurité", "Demander l'intervention des services publics de secours", "Attirer l'attention de sa hiérarchie", "Prévenir les occupants d'un compartiment d'évacuer", "Aucune des réponses précédentes"], "a": [1], "e": "L'alerte, c'est appeler les sapeurs-pompiers (services publics de secours). Prévenir les occupants d'évacuer, c'est l'alarme.", "t": "IGH"},
+  {"q": "Quels sont les dangers des fumées ?", "o": ["Elles engendrent des intoxications", "Elles favorisent le phénomène de panique", "Elles désorientent les personnes par manque de visibilité", "Elles provoquent l'effondrement du bâtiment", "Aucune des réponses précédentes"], "a": [0, 1, 2], "e": "Les fumées sont toxiques, opaques (perte de repères) et favorisent la panique. L'effondrement vient de la chaleur sur la structure, pas des fumées.", "t": "Le feu"},
+  {"q": "Font partie des moyens d'extinction :", "o": ["Les extincteurs", "Le S.S.I", "Les poteaux d'incendie", "Le désenfumage", "L'éclairage de sécurité", "Aucune des réponses précédentes"], "a": [0, 2], "e": "Extincteurs et poteaux d'incendie servent à éteindre. Le SSI détecte et met en sécurité, le désenfumage évacue les fumées, l'éclairage de sécurité aide à évacuer : aucun n'éteint le feu.", "t": "Moyens de secours"},
+  {"q": "Quels sont les dispositifs pouvant constituer une A.E.S ?", "o": ["Un groupe électrogène", "Des batteries d'accumulateurs", "Le réseau électrique de distribution publique", "Un onduleur", "Aucune des réponses précédentes"], "a": [0, 1], "e": "Une alimentation électrique de sécurité prend le relais du secteur : batteries d'accumulateurs ou groupe électrogène. Le réseau public est justement l'alimentation normale.", "t": "SSI"},
+  {"q": "Qu'est-ce que la convection dans un feu ?", "o": ["C'est la transmission de la chaleur par la masse même du matériau", "C'est la transmission de la chaleur par l'intermédiaire de l'air", "C'est la transmission de la chaleur par l'intermédiaire d'ondes électromagnétiques", "C'est la transmission de la chaleur par l'intermédiaire de particules incandescentes", "Aucune des réponses précédentes"], "a": [1], "e": "Convection : l'air et les gaz chauds transportent la chaleur. La masse du matériau, c'est la conduction ; les ondes, le rayonnement ; les particules, les projections.", "t": "Le feu"},
+  {"q": "En cours de ronde vous sentez une odeur suspecte. Vous :", "o": ["Effectuez la levée de doute", "Poursuivez votre ronde", "Prévenez votre PC Sécurité", "Prévenez les pompiers", "Aucune des réponses précédentes"], "a": [0, 2], "e": "On vérifie sur place (levée de doute) et on informe le PC Sécurité. Les pompiers ne sont appelés que si le sinistre est confirmé.", "t": "Rondes"},
+  {"q": "Combien d'appareils émetteurs-récepteurs radio, le service de sécurité incendie d'un IGH doit-il pouvoir mettre à disposition des pompiers ?", "o": ["Deux", "Quatre", "Six", "Aucun", "Aucune des réponses précédentes"], "a": [1], "e": "Réponse retenue par la formation : quatre appareils.", "t": "IGH"},
+  {"q": "Qu'indique l'Unité de Signalisation lorsqu'un « voyant rouge » clignote ?", "o": ["Un défaut de ligne", "Une zone mise hors service", "Les Dispositifs Actionnés de Sécurité en position de sécurité", "Les Dispositifs Actionnés de Sécurité en position d'attente", "Les lampes de l'unité de signalisation sont défectueuses", "Aucune des réponses précédentes"], "a": [5], "e": "Réponse retenue par la formation : aucune des propositions. Piège : ce n'est pas « DAS en position de sécurité ».", "t": "SSI"},
+  {"q": "Quelle est l'utilité des baies accessibles ?", "o": ["Elles permettent l'intervention des équipes de sécurité", "Elles permettent l'intervention des services de secours", "Elles permettent l'évacuation normale du public", "Elles facilitent le nettoyage", "Elles permettent la ventilation", "Aucune des réponses précédentes"], "a": [1], "e": "Les baies accessibles en façade permettent aux sapeurs-pompiers d'entrer depuis l'extérieur (échelles).", "t": "ERP"},
+  {"q": "Que comprend l'éclairage de sécurité ?", "o": ["L'éclairage de remplacement et l'éclairage normal", "L'éclairage de sécurité et l'éclairage d'ambiance", "L'éclairage d'évacuation et l'éclairage de remplacement", "L'éclairage d'ambiance et d'anti-panique", "L'éclairage d'évacuation et l'éclairage d'ambiance ou d'anti-panique", "Aucune des réponses précédentes"], "a": [4], "e": "L'éclairage de sécurité comprend l'éclairage d'évacuation et l'éclairage d'ambiance (ou anti-panique). L'éclairage de remplacement n'en fait pas partie.", "t": "Installations techniques"},
+  {"q": "Indiquer les objectifs d'une ronde de sécurité incendie.", "o": ["Vérifier l'ouverture complète des dispositifs de désenfumage", "Effectuer le contrôle visuel de l'éclairage de sécurité", "Tester tous les détecteurs automatique d'incendie", "Vérifier les conditions de fermeture des portes coupe-feu", "Contrôler systématiquement le fonctionnement des interphones d'ascenseurs", "Aucune des réponses précédentes"], "a": [1, 3], "e": "En ronde : contrôle visuel de l'éclairage de sécurité et fermeture des portes coupe-feu. Tester les détecteurs ou ouvrir le désenfumage relève des essais et de la maintenance.", "t": "Rondes"},
+  {"q": "Comment sont exprimées les durées de résistance au feu, dans les euroclasses ?", "o": ["En secondes", "En minutes", "En heures", "En heures et minutes", "Aucune des réponses précédentes"], "a": [1], "e": "En euroclasses, la durée est en minutes : REI 60 = 60 minutes, EI 30 = 30 minutes.", "t": "Le feu"},
+  {"q": "L'accès au TGBT est :", "o": ["Réservé au public", "Réservé au public si celui-ci est habilité H0B0", "Interdit aux agents SSIAP", "Réservé aux personnes qualifiées", "Aucune des réponses précédentes"], "a": [3], "e": "Le tableau général basse tension est un local électrique : accès réservé aux personnes qualifiées.", "t": "Installations techniques"},
+  {"q": "A quelle distance doit se trouver le raccord d'alimentation d'une colonne sèche ?", "o": ["20 m d'un véhicule d'incendie et de secours", "60 m maxi de l'entrée de l'établissement", "60 m maxi d'un poteau d'incendie", "100 m maxi d'un poteau d'incendie", "Aucune des réponses précédentes"], "a": [2], "e": "Réponse retenue par la formation : à 60 m maximum d'un poteau d'incendie.", "t": "Moyens de secours"},
+  {"q": "Un conduit est :", "o": ["Un volume fermé servant au passage d'un fluide déterminé", "Un volume fermé généralement accessible et renfermant un ou plusieurs conduits", "Un dispositif d'évacuation des fumées situé en façade", "Un dispositif d'accès mobile fermé en position normale", "Aucune des réponses précédentes"], "a": [0], "e": "Un conduit sert au passage d'un fluide déterminé (air, fumée, gaz). Le volume qui renferme un ou plusieurs conduits, c'est une gaine.", "t": "Installations techniques"},
+  {"q": "Sur une porte coupe-feu que puis-je trouver comme indication :", "o": ["Porte coupe-feu à ouverture automatique", "Porte coupe-feu à maintenir ouverte", "Porte coupe-feu à maintenir fermée", "Porte coupe-feu - Ne mettez pas d'obstacle à la fermeture", "Aucune des réponses précédentes"], "a": [2, 3], "e": "Deux signalétiques existent : « à maintenir fermée » (porte à fermeture manuelle) et « ne mettez pas d'obstacle à la fermeture » (porte à fermeture automatique).", "t": "Compartimentage"},
+  {"q": "Qui assure la permanence au poste de sécurité ?", "o": ["L'agent de sécurité incendie SSIAP 1", "Le chef d'équipe sécurité incendie SSIAP 2", "Le directeur du site", "Tout le personnel de l'établissement", "Aucune des réponses précédentes"], "a": [0, 1], "e": "Réponse retenue par la formation : l'agent SSIAP 1 et le chef d'équipe SSIAP 2.", "t": "Rôle de l'agent"},
+  {"q": "A quoi sert une U.C.M.C ?", "o": ["Centraliser les informations de la détection.", "Commander depuis le C.M.S.I les dispositifs actionnés de sécurité.", "Gérer les issues de secours.", "Visualiser les détections.", "Aucune des réponses précédentes"], "a": [1], "e": "L'UCMC (unité de commande manuelle centralisée) commande les DAS depuis le CMSI. Centraliser la détection, c'est l'ECS ; les issues de secours, c'est l'UGCIS.", "t": "SSI"},
+  {"q": "Comment s'appelle la voie permettant aux véhicules de secours d'accéder au bâtiment ?", "o": ["Voie principale", "Voie secondaire", "Voie intérieure", "Voie lactée", "Voie engins", "Aucune des réponses précédentes"], "a": [4], "e": "La voie engins permet aux véhicules de secours d'arriver jusqu'au bâtiment. À ne pas confondre avec la voie échelle, qui permet de mettre en station les échelles aériennes.", "t": "ERP"},
+  {"q": "Indiquer ce que l'on doit trouver au PCS", "o": ["Un coin repas", "La vidéosurveillance", "Les émetteurs récepteurs portatifs", "Le SSI", "Les clefs ou badges pour accéder à tous les locaux", "Aucune des réponses précédentes"], "a": [2, 3, 4], "e": "Au PCS : le SSI, les émetteurs-récepteurs portatifs et les clés ou badges de tous les locaux. La vidéosurveillance n'est pas obligatoire au PCS (correction de la formation).", "t": "Rôle de l'agent"},
+  {"q": "En I.G.H, où trouve-t-on le dispositif de commande de désenfumage de secours des escaliers ?", "o": ["Près des moteurs de désenfumage", "Dans les circulations horizontales communes", "Au P.C.S", "Il n'y en a pas", "Aucune des réponses précédentes"], "a": [2], "e": "En IGH, la commande de désenfumage de secours des escaliers se trouve au poste central de sécurité.", "t": "IGH"},
+  {"q": "Qu'est-ce que l'alarme générale ?", "o": ["Un signal sonore au poste central de sécurité", "Un appel direct au centre d'incendie et de secours", "Un signal sonore qui prévient les occupants d'avoir à évacuer les lieux", "Un appel téléphonique général pour éviter la panique en cas d'incendie", "Aucune des réponses précédentes"], "a": [2], "e": "L'alarme générale ordonne aux occupants d'évacuer. Le signal au PCS, c'est l'alarme restreinte ; l'appel aux pompiers, c'est l'alerte.", "t": "SSI"},
+  {"q": "En IGH, où sont placés les dispositifs phoniques permettant de donner l'alerte intérieure au PCS ?", "o": ["Dans les circulations privatives", "Dans les locaux à risques", "Dans les locaux privatifs", "Dans les combles", "Aucune des réponses précédentes"], "a": [4], "e": "Réponse retenue par la formation : aucune des propositions. Piège : ce ne sont pas les locaux à risques.", "t": "IGH"},
+  {"q": "Sauf dispositions particulières, quand un service sécurité est imposé avec des agents de sécurité incendie, il est composé au minimum de :", "o": ["3 agents dont 1 chef d'équipe", "3 agents et 1 chef d'équipe", "2 agents dont 1 chef d'équipe", "1 agent et 1 chef d'équipe", "Aucune des réponses précédentes"], "a": [0], "e": "Minimum : 3 personnes au total, dont 1 chef d'équipe. Piège : « 3 agents ET 1 chef d'équipe » ferait 4 personnes.", "t": "Rôle de l'agent"},
+  {"q": "Afin d'empêcher les accidents de personnes, quels sont les dispositifs de protection équipant les ascenseurs ?", "o": ["Réducteur de vitesse", "Système « parachute »", "Système E.S.P.", "Système A.B.S.", "Porte palière avec sécurité anti-pincement", "Aucune des réponses précédentes"], "a": [0, 1, 4], "e": "Limiteur (réducteur) de vitesse, parachute qui bloque la cabine en cas de chute et porte palière anti-pincement. ESP et ABS sont des systèmes de voiture.", "t": "Installations techniques"},
+  {"q": "Parmi les établissements suivants, lesquels sont des ERP ?", "o": ["Un train de voyageur", "Un parc d'exposition", "Une salle de concert", "Un dépôt de gaz", "Une menuiserie", "Aucune des réponses précédentes"], "a": [1, 2], "e": "Parc d'exposition (type T) et salle de concert (type L) reçoivent du public. Un train n'est pas un ERP ; un dépôt de gaz et une menuiserie sont des lieux de travail.", "t": "ERP"},
+  {"q": "Qu'est-ce qu'un GH U ?", "o": ["Un IGH à usage d'habitation", "Un IGH à usage de bureaux", "Un IGH à usage mixte", "Un IGH à usage d'archives", "Aucune des réponses précédentes"], "a": [4], "e": "GHU = IGH à usage sanitaire. Habitation = GHA, bureaux = GHW, mixte = GHZ, archives = GHS.", "t": "IGH"},
+  {"q": "Quelle couleur est interdite pour les effets portés au niveau du buste des agents SSIAP ?", "o": ["Jaune orange", "Bleu marine", "Rouge foncé", "Gris clair", "Bleu clair", "Aucune des réponses précédentes"], "a": [1], "e": "Réponse retenue par la formation : le bleu marine.", "t": "Rôle de l'agent"},
+  {"q": "Indiquer les missions d'un agent S.S.I.A.P 1.", "o": ["Prévention des incendies.", "Évacuation du public.", "Intervention précoce face aux incendies.", "Assistance à personnes.", "Direction du P.C.Sécurité.", "Entretien élémentaire des moyens de secours.", "Aucune des réponses précédentes"], "a": [0, 1, 2, 3, 5], "e": "Prévention, évacuation, intervention précoce, assistance à personnes et entretien élémentaire des moyens de secours. Diriger le PC sécurité, c'est le rôle du chef d'équipe SSIAP 2.", "t": "Rôle de l'agent"},
+  {"q": "Font partie des moyens de secours (au sens des articles MS) :", "o": ["Les extincteurs", "Le S.S.I", "Les poteaux d'incendie", "Le désenfumage", "L'éclairage de sécurité", "Aucune des réponses précédentes"], "a": [0, 1, 2], "e": "Au sens des articles MS : extincteurs, SSI, poteaux d'incendie. Piège : le SSI est un moyen de secours, mais pas un moyen d'extinction. Désenfumage et éclairage relèvent d'autres articles.", "t": "Moyens de secours"},
+  {"q": "Un exutoire de fumée est :", "o": ["Un volume fermé servant au passage d'un fluide déterminé", "Un volume situé en sous face d'un plancher haut", "Un dispositif d'évacuation des fumées situé en toiture", "Un dispositif d'évacuation des fumées situé en façade", "Aucune des réponses précédentes"], "a": [2], "e": "L'exutoire est en toiture. En façade, on parle d'ouvrant. Le volume fermé pour un fluide, c'est un conduit.", "t": "Désenfumage"},
+  {"q": "En E.R.P quelle doit-être la pression minimale d'un robinet d'incendie armé (RIA) ?", "o": ["1 bar", "2,5 bars au RIA le plus défavorisé", "2,5 bars au RIA le plus favorisé", "3 bars", "Aucune des réponses précédentes"], "a": [1], "e": "En ERP : 2,5 bars au RIA le plus défavorisé (le plus loin ou le plus haut). En IGH, c'est 4 bars.", "t": "Moyens de secours"},
+  {"q": "Les dispositifs de coupure d'urgence électrique doivent :", "o": ["Être inaccessibles au public", "Être accessibles au public", "Être faciles à atteindre par les services de secours", "Être inaccessibles et autopilotés", "Aucune des réponses précédentes"], "a": [0, 2], "e": "Hors de portée du public, mais faciles à atteindre pour les secours.", "t": "Installations techniques"},
+  {"q": "En IGH, la sensibilisation d'un D.A.I dans une circulation horizontale commune entraîne :", "o": ["L'évacuation du compartiment sinistré et des compartiments adjacents", "L'évacuation générale du bâtiment", "L'évacuation du compartiment sinistré", "Uniquement l'alarme restreinte au P.C.S.", "Aucune des réponses précédentes"], "a": [2], "e": "En IGH on n'évacue pas toute la tour : seul le compartiment sinistré est évacué.", "t": "IGH"},
+  {"q": "En IGH quelle doit-être la pression minimale d'un robinet d'incendie armé (RIA) ?", "o": ["2,5 bars au RIA le plus défavorisé", "2,5 bars au RIA le plus favorisé", "4 bars au RIA le plus favorisé", "4 bars au RIA le plus défavorisé", "Aucune des réponses précédentes"], "a": [3], "e": "En IGH : 4 bars au RIA le plus défavorisé. En ERP : 2,5 bars.", "t": "IGH"},
+  {"q": "Mon chef d'équipe me demande de contrôler un travail par point chaud venant de se terminer.", "o": ["Je remets en service la D.A.I.", "Je contrôle les lieux du travail", "J'inspecte les locaux avoisinants", "Je range les moyens d'extinction et de protection supplémentaires", "Aucune des réponses précédentes"], "a": [1, 2, 3], "e": "Contrôler la zone de travail et les locaux autour, puis ranger les moyens supplémentaires. Piège : remettre la détection en service n'est pas dans la correction retenue.", "t": "Rôle de l'agent"},
+  {"q": "Quelle est la différence essentielle entre un S.S.I de catégorie A et un S.S.I de catégorie B ?", "o": ["Le centralisateur de mise en sécurité incendie", "Les dispositifs actionnés de sécurité", "Le système de détection d'incendie", "L'équipement de sécurité incendie", "Aucune des réponses précédentes"], "a": [2], "e": "Le SSI de catégorie A comporte un système de détection incendie (SDI) ; la catégorie B n'en a pas.", "t": "SSI"},
+  {"q": "Le classement M1 correspond à :", "o": ["la manœuvre mensuelle obligatoire", "aucune des réponses précédentes", "le potentiel d'extinction d'un extincteur", "la résistance au feu d'une porte", "la réaction au feu d'un matériau"], "a": [4], "e": "Le classement M concerne la réaction au feu d'un matériau. La résistance au feu (portes, murs) se note EI, REI.", "t": "Le feu"},
+  {"q": "Quelle est la largeur d'une circulation d'une Unité de Passage (UP) ?", "o": ["1,40 m", "1,80 m", "0,9 m", "0,6 m", "Aucune des réponses précédentes", "1,20 m"], "a": [2], "e": "1 UP = 0,90 m ; 2 UP = 1,40 m ; au-delà, 0,60 m par UP.", "t": "ERP"},
+  {"q": "Quelles sont les différentes causes des incendies ?", "o": ["aucune des réponses précédentes", "Réelles", "Catastrophiques", "Humaines", "Naturelles", "Techniques"], "a": [3, 4, 5], "e": "Trois causes : humaines, naturelles et techniques.", "t": "Le feu"},
+  {"q": "Pour qu'un feu soit inhibé, il faut ?", "o": ["aucune des réponses précédentes", "refroidir le combustible", "utiliser un RIA", "disperser le combustible", "arroser les flammes"], "a": [0], "e": "L'inhibition agit sur la réaction chimique : aucune proposition ne la décrit.", "t": "Le feu"},
+  {"q": "On trouve des dégagements :", "o": ["Sédentaires", "Aucune des réponses précédentes", "Normaux", "Accessoires", "Complémentaires", "Elémentaires", "Supplémentaires"], "a": [2, 3, 6], "e": "Dégagements normaux, accessoires et supplémentaires.", "t": "ERP"},
+  {"q": "Dans un ERP, un escalier encloisonné possède un désenfumage :", "o": ["Naturel", "aucune des réponses précédentes", "Mécanique", "Volumétrique", "Automatique"], "a": [0], "e": "En ERP, l'escalier encloisonné est désenfumé naturellement (ouvrant en partie haute, amenée d'air en bas).", "t": "Désenfumage"},
+  {"q": "Quel(s) danger(s) représente(nt) les fumées lors d'un incendie ?", "o": ["aucun si les pompiers sont alertés", "le déclenchement de la détection incendie", "aucune des réponses précédentes", "le phénomène de panique", "le risque d'inondation", "le risque d'intoxication", "le manque de visibilité pour évacuer"], "a": [3, 5, 6], "e": "Intoxication, manque de visibilité, panique.", "t": "Le feu"},
+  {"q": "Quelle est la caractéristique minimale de la source B d'une installation fixe d'extinction automatique à eau ?", "o": ["Réserve d'eau d'une demi heure", "Réserve d'eau d'une heure", "Source d'eau dite inépuisable", "Aucune des réponses précédentes"], "a": [2], "e": "Réponse retenue par la formation : une source d'eau dite inépuisable. Piège : ce n'est pas une réserve limitée dans le temps.", "t": "Moyens de secours"}
+] };
+</script>
+
+<!-- MODULE TERRAIN : épreuve pratique (tableau SSI du site, schémas, ronde, alerte) -->
+<script>
+// Rendu dans un Shadow DOM : ses styles ne touchent pas au reste du site, et il reprend les couleurs du site.
+window.TerrainSSI=(function(){
+const CSS="\n:host{display:block;box-sizing:border-box;\n  --bg:var(--page,#000); --surface:var(--s1,#121212); --surface2:var(--s2,#1b1b1b); --line:var(--line-2,#383838);\n  --gold:var(--hi,#fff); --muted:var(--mute,#8a8a8a); --ok:#5fcf86; --bad:var(--bad,#f0605b);\n  --plastic:#e3e5e4; --plastic-d:#c9cccb; --teal:#1f5c58; --teal-d:#174744; --teal-line:#2f7772;\n  --led-off:#0f3331; --red:#ff3b30; --green:#46e06e; --yellow:#ffc81f;\n  --blue:#3aa3e3; --orange:#f2a93b; --dgreen:#1e7a46;\n  --serif:\"Schibsted Grotesk\",\"Helvetica Neue\",Arial,sans-serif;\n  --cond:\"Schibsted Grotesk\",\"Helvetica Neue\",Arial,sans-serif;\n  --sans:\"Schibsted Grotesk\",\"Helvetica Neue\",Arial,sans-serif;\n  color:var(--text);font:400 16px/1.5 var(--sans);\n}\n*,*::before,*::after{box-sizing:inherit}\nbutton{font:inherit;color:inherit;cursor:pointer}\nbutton:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:8px}\nimg{max-width:100%}\n.wrap{padding:0 0 32px}\n\n/* header */\nheader.top{padding:28px 0 18px;border-bottom:1px solid var(--line)}\nheader.top h1{font:700 clamp(2.2rem,7vw,3.4rem)/1 var(--serif);color:var(--gold);margin:0;letter-spacing:.06em}\nheader.top p{margin:10px 0 0;color:var(--muted);max-width:60ch}\n\n/* tabs */\nnav.tabs{display:flex;gap:4px;overflow-x:auto;padding:10px 0;border-bottom:1px solid var(--line);scrollbar-width:none}\nnav.tabs::-webkit-scrollbar{display:none}\nnav.tabs button{flex:0 0 auto;background:none;border:1px solid transparent;border-radius:999px;padding:8px 16px;font:600 1rem var(--cond);letter-spacing:.03em;color:var(--muted)}\nnav.tabs button[aria-selected=\"true\"]{background:var(--gold);color:var(--bg);border-color:var(--gold)}\nsection.tab{display:none;padding-top:20px}\nsection.tab.on{display:block}\nh2{font:800 1.35rem/1.2 var(--serif);letter-spacing:-.02em;color:var(--gold);margin:8px 0 6px}\nh3{font:700 1.15rem/1.2 var(--cond);margin:0 0 10px;letter-spacing:.02em}\n.lead{color:var(--muted);margin:0 0 16px;max-width:65ch}\n\n/* scenario picker */\n.scen{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}\n.chip{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px;text-align:left;min-height:44px}\n.chip b{display:block;font:700 1rem var(--cond)}\n.chip small{color:var(--muted);font-size:.8rem}\n.chip.on{border-color:var(--gold);background:var(--surface2)}\n.brief{background:var(--surface);border-left:3px solid var(--gold);padding:12px 14px;border-radius:0 10px 10px 0;margin-bottom:12px}\n.brief strong{color:var(--gold)}\n.ldd-res{margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--surface2);border:1px solid var(--line)}\n.ldd-res.neg{border-color:var(--ok)}\n.ldd-res.pos{border-color:var(--bad)}\n\n.tempo{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px}\n.tempo .tt{display:flex;justify-content:space-between;gap:10px;font:600 .95rem var(--cond)}\n.tempo .bar{height:6px;background:var(--surface2);border-radius:3px;margin-top:8px;overflow:hidden}\n.tempo .bar i{display:block;height:100%;background:var(--gold);width:100%;transition:width 1s linear}\n.tempo.urgent .bar i{background:var(--bad)}\n.tempo small{color:var(--muted)}\n\n.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}\n.tbtn{background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font:600 .95rem var(--cond);min-height:40px}\n.tbtn[aria-pressed=\"true\"]{border-color:var(--gold);color:var(--gold)}\n\n/* ===== KARA panel replica ===== */\n.kara{background:linear-gradient(#eef0ef,var(--plastic));border-radius:24px;padding:14px;box-shadow:inset 0 -6px 0 var(--plastic-d),0 2px 0 #fff3;color:#0d1f1e}\n.face{display:grid;grid-template-columns:1fr;gap:10px}\n.ecs,.side>div{background:var(--teal);border-radius:16px;border:2px solid var(--teal-d);color:#f3f7f6;padding:12px}\n.ecs{display:grid;gap:12px;grid-template-columns:1fr 1fr;grid-template-areas:\"zones zones\" \"status ctrls\" \"abc abc\" \"consigne consigne\"}\n.zones{grid-area:zones}.status{grid-area:status}.ctrls{grid-area:ctrls}.abc{grid-area:abc}.consigne{grid-area:consigne}\n.side{display:grid;gap:10px}\n.lbl{font:700 .78rem/1.1 var(--cond);letter-spacing:.02em;text-transform:uppercase}\n.zhead{font:600 .66rem var(--cond);opacity:.8;text-align:right;padding-right:96px;margin-bottom:4px}\n.zrow{display:grid;grid-template-columns:1fr 14px 14px 66px;align-items:center;gap:7px;margin-bottom:5px}\n.ztag{background:#fff;color:#1b1b1b;border:0;border-radius:4px;font:600 .74rem var(--cond);padding:6px 8px;text-align:left;min-height:30px;letter-spacing:.02em}\n.ztag.empty{opacity:.85}\n.zrow .lbl{font-size:.72rem;white-space:nowrap}\n.led{width:12px;height:12px;border-radius:50%;background:var(--led-off);box-shadow:inset 0 1px 2px #0008;display:inline-block;flex:0 0 auto}\n.led.r.on{background:var(--red);box-shadow:0 0 8px var(--red),0 0 2px #fff inset}\n.led.g.on{background:var(--green);box-shadow:0 0 8px var(--green)}\n.led.y.on{background:var(--yellow);box-shadow:0 0 8px var(--yellow)}\n.led.blink.on{animation:blink 1s steps(2,start) infinite}\n@keyframes blink{to{visibility:hidden}}\n.srow{display:flex;align-items:center;gap:8px;padding:4px 0;font:700 .78rem/1.15 var(--cond);text-transform:uppercase;border:0;background:none;color:inherit;text-align:left;width:100%}\n.feu{display:flex;align-items:center;gap:10px;margin-bottom:6px}\n.feu span{font:700 1.3rem var(--cond)}\n.feubar{width:46px;height:12px;border-radius:3px;background:#3a2a1a;box-shadow:inset 0 1px 3px #000a}\n.feubar.on{background:var(--red);box-shadow:0 0 14px var(--red)}\n.ctrls{display:flex;flex-direction:column;gap:10px;align-items:stretch}\n.prow{display:flex;align-items:center;justify-content:flex-end;gap:10px;text-align:right}\n.pbtn{width:46px;height:46px;border-radius:50%;border:2px solid #b9cfcc;background:radial-gradient(circle at 35% 30%,#ffffff,#d5e2e0 60%,#a9bcb9);box-shadow:0 2px 0 #0b2b29;flex:0 0 auto;transition:transform .08s}\n.pbtn:active{transform:translateY(2px);box-shadow:none}\n.abc{display:flex;flex-direction:column;align-items:flex-start;gap:6px}\n.abc .keys{display:flex;gap:12px}\n.abc .k{width:46px;height:46px;font:700 1.2rem var(--cond);color:#2a4c49}\n.abc .codeview{font:600 .8rem var(--cond);opacity:.9;min-height:1.2em}\n.consigne{border:1px solid var(--teal-line);border-radius:10px;padding:8px 10px;font-size:.78rem;line-height:1.35}\n.consigne b{display:block;font:700 .95rem var(--cond);color:#ffd1cc;margin-bottom:3px}\n.uga-top{display:grid;grid-template-columns:auto 1fr;gap:10px 10px;align-items:center}\n.evac-btn{width:64px;height:64px;border-radius:50%;border:4px solid #ff7b6e;background:radial-gradient(circle at 35% 30%,#ff6b5d,#d81e12);box-shadow:0 3px 0 #6d0f09;position:relative;overflow:hidden;color:#fff;font:700 .58rem/1.05 var(--cond)}\n.evac-btn i{position:absolute;inset:auto 0 0 0;height:0;background:#ffffff55}\n.evac-wrap{display:flex;align-items:center;gap:10px;grid-column:1 / -1}\n.uga-leds{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:10px;text-align:center}\n.uga-leds .srow{flex-direction:column;gap:4px;font-size:.6rem;padding:0;align-items:center;text-align:center}\n.cmsi-rows{display:grid;gap:6px;margin-top:8px}\n.crow{display:grid;grid-template-columns:96px 1fr auto 52px;align-items:center;gap:8px;border:1px solid var(--teal-line);border-radius:6px;padding:4px 6px}\n.ctag{background:#fff;color:#1b1b1b;border:0;border-radius:3px;font:700 1.05rem var(--cond);padding:6px 0;text-align:center}\n.cstate{font:600 .72rem var(--cond);text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--teal-d);justify-self:start}\n.cstate.sec{background:#fff;color:#b3170d}\n.rbtn{width:44px;height:44px;border-radius:50%;border:0;background:radial-gradient(circle at 35% 30%,#ff6b5d,#d3170c);box-shadow:0 2px 0 #6d0f09}\n.plate{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}\n.code{background:#fff;padding:6px 12px;font:600 .9rem var(--cond);letter-spacing:.04em;border:1px solid #bbb}\n.brand{background:var(--teal);color:#fff;font:700 .9rem var(--cond);padding:6px 12px;border-radius:4px}\n.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bg);padding:10px 0 8px;margin:0 0 10px;border-bottom:1px solid var(--line)}\n.hud-top{display:flex;align-items:center;gap:12px}\n.hud-led{flex:0 0 22px;height:22px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}\n.hud-led.feu{background:var(--red);box-shadow:0 0 14px var(--red);animation:blink 1s steps(2,start) infinite}\n.hud-led.evac{background:var(--red);box-shadow:0 0 18px var(--red)}\n.hud-led.def{background:var(--yellow);box-shadow:0 0 12px var(--yellow)}\n.hud-txt{flex:1;min-width:0;line-height:1.2}\n.hud-txt b{display:block;font:700 1.02rem var(--cond);letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n.hud-txt small{display:block;color:var(--muted);font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n.hud-chips{display:flex;flex-direction:column;gap:4px;align-items:flex-end}\n.hchip{font:600 .7rem var(--cond);padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}\n.hchip.on{border-color:var(--gold);color:var(--gold)}\n.hchip.alert{border-color:var(--bad);color:var(--bad)}\n.hud-bar{position:relative;height:22px;border-radius:6px;background:var(--surface2);overflow:hidden;margin-top:8px}\n.hud-bar i{position:absolute;inset:0 auto 0 0;background:var(--gold);opacity:.35;transition:width 1s linear}\n.hud-bar.urgent i{background:var(--bad);opacity:.55}\n.hud-bar span{position:relative;display:block;text-align:center;font:600 .78rem/22px var(--cond)}\n.seg{display:none;margin-top:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px;gap:3px}\n.seg button{flex:1;border:0;background:none;border-radius:999px;min-height:38px;font:600 .92rem var(--cond);color:var(--muted)}\n.seg button[aria-selected=\"true\"]{background:var(--gold);color:var(--bg)}\n.segn{display:inline-block;margin-left:6px;font-size:.75rem;opacity:.85}\n.bn,.zunused,.m-only{display:none}\n.tension{margin-left:auto;display:flex;align-items:center;gap:8px}\n.tension .lbl{font-size:.72rem}\n.uga-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:start;text-align:center}\n.ub{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}\n.ub .lbl{font-size:.68rem;line-height:1.15}\n.ecs>*,.side>div,.side>div *{min-width:0}\n.uga-leds .srow{overflow-wrap:normal;word-break:normal;hyphens:auto}\n.uslegend{margin-top:12px}\n.uslegend h3{margin-bottom:4px}\n.uslead{margin:0 0 10px;color:var(--muted);font-size:.9rem}\n.usgrid{display:grid;gap:2px}\n.usrow{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:start;padding:8px 0;border-top:1px solid var(--line)}\n.usrow:first-child{border-top:0}\n.usrow b{display:block;font:700 1rem var(--cond)}\n.usrow span:not(.led):not(.ledbox){font-size:.9rem}\n.usrow em{color:var(--muted)}\n.ledbox{display:flex;gap:5px;align-items:center;justify-content:center;background:var(--teal);border-radius:8px;height:30px;margin-top:2px}\n.ledbox .led{width:13px;height:13px}\n.usnote{margin:8px 0 0;font-size:.82rem;color:var(--muted)}\n.kara.explain [data-info]{outline:1px dashed #ffffffaa;outline-offset:2px}\n.kara.explain .plate [data-info]{outline-color:#0006}\n\n/* actions + log */\n.acts{margin-top:16px}\n.acts .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}\n.abtn{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:left;min-height:52px;font:600 .98rem/1.2 var(--cond)}\n.abtn small{display:block;font:400 .78rem var(--sans);color:var(--muted);margin-top:2px}\n.abtn:active{border-color:var(--gold)}\n.cols{display:grid;gap:14px;margin-top:16px}\n.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}\nol.steps{margin:0;padding:0;list-style:none;counter-reset:s}\nol.steps li{counter-increment:s;display:flex;gap:10px;padding:7px 0;border-top:1px solid var(--line);color:var(--muted)}\nol.steps li:first-child{border-top:0}\nol.steps li::before{content:counter(s);flex:0 0 26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font:600 .85rem var(--cond)}\nol.steps li.done{color:var(--text)}\nol.steps li.done::before{content:\"✓\";background:var(--ok);border-color:var(--ok);color:#04150a}\nol.steps.hide li:not(.done) span{filter:blur(5px);user-select:none}\n.log{list-style:none;margin:0;padding:0;max-height:260px;overflow:auto;font-size:.88rem}\n.log li{padding:5px 0;border-top:1px solid var(--line);display:flex;gap:8px}\n.log li:first-child{border-top:0}\n.log time{color:var(--muted);font:600 .8rem var(--cond);flex:0 0 42px}\n.log .err{color:var(--bad)}\n.log .good{color:var(--ok)}\n.result{margin:0 0 14px;border:1px solid var(--gold);border-radius:12px;padding:14px;background:var(--surface2)}\n.result h3{color:var(--gold)}\n.free{margin-top:12px}\n.empty-note{color:var(--muted);font-size:.9rem;margin:0}\n\n/* info sheet + toast */\n.sheet{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;background:var(--surface);border:1px solid var(--gold);border-radius:14px;padding:14px 16px;z-index:40;box-shadow:0 10px 40px #000a;display:none}\n.sheet.on{display:block}\n.sheet b{display:block;font:700 1.05rem var(--cond);color:var(--gold);margin-bottom:4px}\n.sheet button{position:absolute;top:6px;right:8px;background:none;border:0;font-size:1.4rem;color:var(--muted);width:40px;height:40px}\n.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:500;z-index:50;max-width:calc(100% - 32px);opacity:0;pointer-events:none;transition:opacity .2s}\n.toast.on{opacity:1}\n.toast.err{background:var(--bad);color:#fff}\n\n/* ===== schemas ===== */\n.modebar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}\n.tree{display:flex;flex-direction:column;align-items:center;gap:6px;margin:10px 0 22px}\n.tree .row{display:flex;gap:40px}\n.box{border:2px solid #111;border-radius:6px;padding:8px 12px;font:700 1rem var(--cond);text-align:center;min-width:64px;background:#fff;color:#111;position:relative}\n.box.blue{background:var(--blue)}.box.orange{background:var(--orange)}.box.dgreen{background:var(--dgreen);color:#fff}\n.box.big{font-size:1.4rem;padding:8px 22px}\n.box small{display:block;font:500 .72rem var(--sans);margin-top:2px}\n.hidden-mode .box[data-a]{color:transparent}\n.hidden-mode .box[data-a]::after{content:\"?\";position:absolute;inset:0;display:grid;place-items:center;color:#111;font-size:1.3rem}\n.hidden-mode .box.dgreen[data-a]::after{color:#fff}\n.hidden-mode .box[data-a].shown{color:inherit}\n.hidden-mode .box[data-a].shown::after{content:none}\n.hidden-mode .box[data-a]{cursor:pointer}\n.scheme{background:#fbfbf9;color:#111;border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid var(--line)}\n.scheme h3{font:700 1.6rem var(--cond);text-align:center;border:2px solid #111;border-radius:4px;padding:4px;margin:0 auto 4px;max-width:260px}\n.scheme .hand{font:600 1rem var(--sans);color:#d43a5a;text-align:center;font-style:italic;margin:0 0 12px}\n.flow{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1.2fr);gap:10px 6px;align-items:center}\n.flow .arrow{text-align:center;font-weight:700;font-size:1.2rem}\n.flow .note{grid-column:1 / -1;font-size:.85rem;color:#444;margin:-4px 0 4px}\n.zone-tag{display:inline-block;font:700 .8rem var(--cond);border:1.5px solid #111;border-radius:4px;padding:1px 6px;margin-left:6px;background:#fff;color:#111}\n.dots{display:flex;gap:6px;justify-content:center;margin-top:6px}\n.dot{width:14px;height:14px;border-radius:50%}\n.vleg{display:grid;gap:8px;margin-top:10px}\n.vleg div{display:flex;gap:10px;align-items:flex-start;font-size:.92rem}\n.vleg .dot{flex:0 0 14px;margin-top:4px}\n.flash{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}\n.fc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;min-height:86px;text-align:left}\n.fc b{display:block;font:700 1.25rem var(--cond);color:var(--gold)}\n.fc span{font-size:.88rem;color:var(--muted)}\n.fc:not(.open) span{visibility:hidden}\n.scorebar{font:600 .95rem var(--cond);color:var(--muted);margin:6px 0 10px}\n\n/* ronde */\n.rcards{display:grid;gap:10px}\n.rc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}\n.rc p{margin:0}\n.rc .q{font-weight:600}\n.rc .a{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);color:var(--text)}\n.rc .a[hidden]{display:none}\n.rc .btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}\n.rc.know{border-color:var(--ok)}\n.rc.again{border-color:var(--bad)}\n\n/* alerte */\n.nums{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:22px}\n.num{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:left;min-height:80px}\n.num b{display:block;font:700 1.6rem var(--cond);color:var(--gold)}\n.num:not(.open) b{color:transparent;text-shadow:0 0 12px var(--gold)}\n.num span{font-size:.9rem}\nol.msg{padding-left:0;list-style:none;counter-reset:m;margin:0}\nol.msg li{counter-increment:m;display:grid;grid-template-columns:34px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line)}\nol.msg li::before{content:counter(m);font:700 1.4rem var(--serif);color:var(--gold)}\nol.msg li b{font-family:var(--cond);font-size:1.05rem}\n\n/* ---- v3 : fidélité au tableau ---- */\n.zhead{display:flex;justify-content:flex-end;gap:14px;padding-right:72px;margin-bottom:6px;font:600 .64rem var(--cond);text-transform:uppercase;opacity:.9;text-align:left}\n.sym{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle;border:1.5px solid #fff}\n.sym.f{background:#fff}\n.sym.b{background:linear-gradient(90deg,#fff 50%,transparent 50%)}\n.feutxt{font:700 1.3rem var(--cond);display:flex;align-items:center;gap:6px}\n.flame{width:12px;height:16px;background:var(--red);clip-path:polygon(50% 0,80% 35%,100% 70%,75% 100%,25% 100%,0 70%,20% 35%);opacity:.9}\n.feubar{display:flex;gap:3px;width:auto;height:auto;background:#3a2a1a;padding:3px;border-radius:4px;box-shadow:inset 0 1px 3px #000a}\n.feubar i{width:10px;height:9px;border-radius:2px;background:#5a4630}\n.feubar.on{background:#3a2a1a;box-shadow:inset 0 1px 3px #000a,0 0 14px var(--red)}\n.feubar.on i{background:var(--red);box-shadow:0 0 6px var(--red)}\n.niv{display:flex;flex-direction:column;line-height:1.15}\n.kk{display:flex;flex-direction:column;align-items:center;gap:2px}\n.arr{font:700 1rem var(--cond);line-height:1;min-height:1rem}\n.abc .lbl{line-height:1.15}\n.consigne .c2{display:block;margin-top:6px}\n.ttl{font:700 1rem var(--cond);margin-bottom:8px}\n.ttl small{font:600 .6rem var(--cond);opacity:.8;margin-left:6px}\n.evac-btn .ring{position:relative;z-index:1;display:block;font:700 .48rem/1.1 var(--cond);padding:0 6px;letter-spacing:.02em}\n.evled{display:flex;align-items:center;gap:6px;margin-top:2px}\n.evled .lbl{font-size:.62rem}\n.crow{grid-template-columns:70px minmax(0,1fr) auto 48px}\n.cstate{display:none}\n.crow .cleds{grid-column:3}\n.crow .rbtn{grid-column:4}\n.crow .rbtn{width:44px;height:44px}\n.cleds,.chead .cl{display:grid;grid-template-columns:repeat(3,36px);justify-items:center;align-items:center}\n.chead{display:grid;grid-template-columns:70px minmax(0,1fr) auto 48px;gap:8px;padding:0 6px;font:600 .55rem var(--cond);text-transform:uppercase;opacity:.85;margin-top:6px}\n.chead .cl i{font-style:normal;white-space:nowrap}\n.chead>span:last-child{text-align:center}\n.bilanrow{display:flex;align-items:center;gap:10px;margin-top:10px}\n.pbtn.sm{width:38px;height:38px}\n.ztag.sel{outline:3px solid var(--yellow);outline-offset:1px}\n.ztag.hs{text-decoration:line-through;opacity:.75}\n.aesbox{display:flex;align-items:center;gap:14px;margin-top:12px;background:linear-gradient(#fafafa,#e7e8e8);color:#1a1a1a;border-radius:14px;padding:10px 14px;box-shadow:inset 0 -3px 0 #cfd1d0}\n.aes-l{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;background:#3c4657;color:#e8eef7;border-radius:10px;padding:8px 12px}\n.aesled{display:flex;align-items:center;gap:7px;font:600 .72rem var(--cond);text-transform:uppercase}\n.aes-r b{display:block;font:800 1.4rem var(--cond);letter-spacing:.06em;color:#3c4657}\n.aes-r small{font-size:.78rem;color:#555}\n.aesbox.explain{outline:1px dashed #0006;outline-offset:2px;cursor:help}\n.chip.sur{border-color:var(--bad)}\n.chip.sur.on{background:var(--surface2)}\n#t-sim.exam .cstate{visibility:hidden}\n#t-sim.exam #hudBar,#t-sim.exam .tempo{display:none!important}\n#t-sim.exam .zunused{display:none}\n.kara{container-type:inline-size;container-name:kara}\n.feu{flex-wrap:wrap;row-gap:6px}\n@media (max-width:640px){\n  .seg{display:flex}\n  #simBody[data-view=\"panel\"] [data-pane]:not([data-pane=\"panel\"]),\n  #simBody[data-view=\"acts\"] [data-pane]:not([data-pane=\"acts\"]),\n  #simBody[data-view=\"fiche\"] [data-pane]:not([data-pane=\"fiche\"]){display:none}\n  .tempo{display:none}\n  .m-only{display:block}\n  .toast{left:12px;right:12px;transform:none;max-width:none;text-align:center}\n  .kara{padding:8px;border-radius:16px;box-shadow:inset 0 -4px 0 var(--plastic-d)}\n  .aesbox{flex-direction:column;align-items:stretch;gap:8px}\n  .acts{margin-top:0}\n  .acts .grid{grid-template-columns:1fr 1fr}\n  .abtn{min-height:64px}\n  .cols{margin-top:0}\n  .log{max-height:none}\n}\n@container kara (max-width:559px){\n  .face{gap:8px}\n  .ecs,.side>div{padding:10px;border-radius:12px}\n  .ecs{grid-template-columns:1fr;grid-template-areas:\"zones\" \"status\" \"ctrls\" \"abc\";gap:12px}\n  .consigne{display:none}\n  .zhead{justify-content:flex-start;padding:0;gap:12px}\n  .zrow{grid-template-columns:minmax(0,1fr) 14px 14px;gap:9px;margin-bottom:6px}\n  .zrow .lbl{display:none}\n  .zrow.unused{display:none}\n  .zunused{display:block;font:600 .7rem var(--cond);opacity:.7;text-align:center;padding:2px 0 0}\n  .ztag{display:flex;align-items:center;gap:8px;min-height:40px;font-size:.84rem;padding:6px 8px}\n  .bn{display:inline-grid;place-items:center;min-width:26px;height:22px;border-radius:4px;background:var(--teal);color:#fff;font:700 .7rem var(--cond)}\n  .status{display:grid;grid-template-columns:1fr 1fr;column-gap:12px;row-gap:2px}\n  .feu{grid-column:1/-1;margin-bottom:4px}\n  .srow{font-size:.72rem;padding:5px 0;gap:7px}\n  .ctrls{flex-direction:row;justify-content:space-around;gap:6px}\n  .prow{flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;gap:6px;flex:1;min-width:0}\n  .prow .pbtn{order:-1}\n  .prow .lbl{font-size:.66rem;line-height:1.15}\n  .pbtn{width:50px;height:50px}\n  .abc{flex-direction:row;flex-wrap:wrap;align-items:flex-start;gap:8px 12px}\n  .abc .k{width:48px;height:48px}\n  .abc .lbl{flex:1 1 100%;order:3;font-size:.64rem;opacity:.85}\n  .abc .lbl br{display:none}\n  .abc .codeview{order:2;align-self:center}\n  .evac-btn{width:58px;height:58px}\n  .evac-btn .ring{font-size:.42rem}\n  .uga-leds{gap:2px}\n  .uga-leds .srow{font-size:.56rem}\n  .crow,.chead{grid-template-columns:62px minmax(0,1fr) auto 44px;gap:6px}\n  .crow{padding:4px}\n  .cstate{font-size:.6rem;padding:2px 6px}\n  .cleds,.chead .cl{grid-template-columns:repeat(3,30px)}\n  .chead{font-size:.5rem;padding:0 4px}\n  .rbtn{width:40px;height:40px}\n  .ctag{font-size:.95rem}\n  .brand{display:none}\n  .plate{margin-top:8px}\n  .code{font-size:.8rem}\n}\n@container kara (min-width:560px){\n  .ecs{grid-template-columns:1.35fr 1fr .8fr;grid-template-areas:\"zones status ctrls\" \"abc consigne consigne\"}\n  .side{grid-template-columns:1fr 1fr}\n}\n@container kara (min-width:940px){\n  .face{grid-template-columns:1.65fr 1fr}\n  .side{grid-template-columns:1fr}\n}\n@media (min-width:760px){\n  .cols{grid-template-columns:1fr 1fr}\n}\n}\n@media (prefers-reduced-motion:reduce){\n  .led.blink.on{animation:none}\n  .tempo .bar i{transition:none}\n}\n";
+const HTML="<nav class=\"tabs\" role=\"tablist\">\n    <button role=\"tab\" aria-selected=\"true\" data-tab=\"sim\">Simulateur SSI</button>\n    <button role=\"tab\" aria-selected=\"false\" data-tab=\"sch\">Schémas</button>\n    <button role=\"tab\" aria-selected=\"false\" data-tab=\"ronde\">Ronde</button>\n    <button role=\"tab\" aria-selected=\"false\" data-tab=\"alerte\">Alerte</button>\n  </nav>\n\n  <!-- ================= SIMULATEUR ================= -->\n  <section class=\"tab on\" id=\"t-sim\">\n    <h2>Le tableau du site</h2>\n    <p class=\"lead\">Réplique de l'ECS/CMSI KARA-8 UP de la salle, avec tous ses voyants et boutons. Choisis un scénario et gère-le comme le jour de l'examen. « Examen surprise » tire un événement au hasard : tu ne sais pas à l'avance si c'est un vrai feu.</p>\n\n    <div class=\"scen\" id=\"scen\"></div>\n    <div class=\"brief\" id=\"brief\">Choisis un scénario pour commencer. Active <strong>Mode explication</strong> pour découvrir à quoi sert chaque bouton et voyant.</div>\n    <div class=\"tempo\" id=\"tempo\" hidden>\n      <div class=\"tt\"><span id=\"tempoTxt\"></span><span id=\"tempoSec\"></span></div>\n      <div class=\"bar\"><i id=\"tempoBar\"></i></div>\n      <small>Raccourcie à 2 min pour l'entraînement. Sur site, jusqu'à 5 min. Seul l'acquittement du processus la stoppe.</small>\n    </div>\n\n    <div class=\"toolbar\">\n      <button class=\"tbtn\" id=\"explainBtn\" aria-pressed=\"false\">Mode explication</button>\n      <button class=\"tbtn\" id=\"examBtn\" aria-pressed=\"false\">Mode examen : sans aide</button>\n      <button class=\"tbtn\" id=\"muteBtn\" aria-pressed=\"false\">Couper le son</button>\n    </div>\n\n    <div class=\"hud\" id=\"hud\" aria-live=\"polite\">\n      <div class=\"hud-top\">\n        <span class=\"hud-led\" id=\"hudLed\"></span>\n        <div class=\"hud-txt\"><b id=\"hudTitle\">Veille</b><small id=\"hudSub\">Aucune alarme en cours</small></div>\n        <div class=\"hud-chips\"><span class=\"hchip\" id=\"hudNiv\">Niveau 1</span><span class=\"hchip\" id=\"hudSon\">Silence</span></div>\n      </div>\n      <div class=\"hud-bar\" id=\"hudBar\" hidden><i id=\"hudFill\"></i><span id=\"hudBarTxt\"></span></div>\n      <div class=\"seg\" role=\"tablist\" aria-label=\"Vue du simulateur\">\n        <button role=\"tab\" data-view=\"panel\" aria-selected=\"true\">Tableau</button>\n        <button role=\"tab\" data-view=\"acts\" aria-selected=\"false\">Terrain</button>\n        <button role=\"tab\" data-view=\"fiche\" aria-selected=\"false\">Fiche<span class=\"segn\" id=\"segN\"></span></button>\n      </div>\n    </div>\n\n    <div id=\"simBody\" data-view=\"panel\">\n    <div class=\"kara\" id=\"kara\" data-pane=\"panel\">\n      <div class=\"face\">\n        <div class=\"ecs\">\n          <div class=\"zones\">\n            <div class=\"zhead\" data-info=\"zone\"><span><i class=\"sym f\"></i>Hors service / essai</span><span><i class=\"sym b\"></i>Défaut</span></div>\n            <div id=\"zoneRows\"></div>\n          </div>\n          <div class=\"status\">\n            <div class=\"feu\"><span class=\"feutxt\" data-info=\"feu\">FEU <span class=\"flame\" aria-hidden=\"true\"></span></span><span class=\"feubar\" id=\"led-feu\" data-info=\"feu\"><i></i><i></i><i></i><i></i></span><span class=\"tension\" data-info=\"tension\"><span class=\"lbl\">Sous tension</span><span class=\"led g on\" id=\"led-tension\"></span></span></div>\n            <button class=\"srow\" data-info=\"defgen\" data-id=\"defgen\"><span class=\"led y\" id=\"led-defgen\"></span>Défaut général</button>\n            <button class=\"srow\" data-info=\"defsys\" data-id=\"defsys\"><span class=\"led y\" id=\"led-defsys\"></span><span>Défaut système<br>Tableau hors service</span></button>\n            <button class=\"srow\" data-info=\"defsect\" data-id=\"defsect\"><span class=\"led y\" id=\"led-defsect\"></span>Défaut secteur</button>\n            <button class=\"srow\" data-info=\"defbat\" data-id=\"defbat\"><span class=\"led y\" id=\"led-defbat\"></span>Défaut batterie</button>\n            <button class=\"srow\" data-info=\"defbatc\" data-id=\"defbatc\"><span class=\"led y\" id=\"led-defbatc\"></span>Défaut batterie CMSI</button>\n            <button class=\"srow\" data-info=\"hs\" data-id=\"hs\"><span class=\"led y\" id=\"led-hs\"></span>Hors service</button>\n            <button class=\"srow\" data-info=\"essai\" data-id=\"essai\"><span class=\"led y\" id=\"led-essai\"></span>Essai</button>\n            <div class=\"srow\" data-info=\"niveau\"><span class=\"led y\" id=\"led-n2\"></span><span class=\"niv\"><span><i class=\"sym f\"></i>Niveau 2</span><span><i class=\"sym b\"></i>Niveau 3</span></span></div>\n          </div>\n          <div class=\"ctrls\">\n            <div class=\"prow\"><span class=\"lbl\">Arrêt signaux sonores</span><button class=\"pbtn\" data-act=\"sonore\" data-info=\"sonore\" aria-label=\"Arrêt signaux sonores\"></button></div>\n            <div class=\"prow\"><span class=\"lbl\">Réarmement</span><button class=\"pbtn\" data-act=\"rearm\" data-info=\"rearm\" aria-label=\"Réarmement\"></button></div>\n            <div class=\"prow\"><span class=\"lbl\">Essai signalisations</span><button class=\"pbtn\" data-act=\"lamp\" data-info=\"lamp\" aria-label=\"Essai signalisations\"></button></div>\n          </div>\n          <div class=\"abc\" data-info=\"abc\">\n            <div class=\"keys\">\n              <div class=\"kk\"><button class=\"pbtn k\" data-key=\"A\">A</button><span class=\"arr\">↑</span></div>\n              <div class=\"kk\"><button class=\"pbtn k\" data-key=\"B\">B</button><span class=\"arr\">&nbsp;</span></div>\n              <div class=\"kk\"><button class=\"pbtn k\" data-key=\"C\">C</button><span class=\"arr\">↓</span></div>\n            </div>\n            <span class=\"lbl\">Diagnostic<br>en/hors service<br>essai</span>\n            <span class=\"codeview\" id=\"codeview\"></span>\n          </div>\n          <div class=\"consigne\" data-info=\"consigne\">\n            <b>En cas d'alarme feu</b>\n            Identifier la zone concernée et prévenir le service de sécurité. Arrêter le signal sonore. Après la disparition de la cause de l'alarme, accéder au niveau 2 et réarmer le tableau.\n            <span class=\"c2\">En cas de dérangement (voyant jaune allumé), prévenir immédiatement le service technique de l'établissement.</span>\n          </div>\n        </div>\n\n        <div class=\"side\">\n          <div class=\"uga\" data-info=\"uga\">\n            <div class=\"ttl\">UGA <small>NF S 61-936</small></div>\n            <div class=\"uga-top\">\n              <div class=\"ub\"><button class=\"pbtn\" data-act=\"acq\" data-info=\"acq\" aria-label=\"Acquittement processus\"></button><span class=\"lbl\">Acquittement processus</span></div>\n              <div class=\"ub\"><button class=\"pbtn\" data-act=\"veille\" data-info=\"veille\" aria-label=\"Veille restreinte\"></button><span class=\"lbl\">Veille restreinte</span></div>\n              <div class=\"ub\"><button class=\"evac-btn\" id=\"evacBtn\" data-info=\"evac\" aria-label=\"Commande évacuation générale, appuyer 3 secondes\"><span class=\"ring\">APPUYER 3 SECONDES</span><i id=\"evacFill\"></i></button><span class=\"lbl\">Commande évacuation générale</span><span class=\"evled\" data-info=\"evacled\"><span class=\"led r\" id=\"led-uevac\"></span><span class=\"lbl\">Évacuation générale</span></span></div>\n            </div>\n            <div class=\"uga-leds\">\n              <div class=\"srow\" data-info=\"ugaalarme\"><span class=\"led r\" id=\"led-ualarme\"></span>Alarme</div>\n              <div class=\"srow\" data-info=\"veille\"><span class=\"led y\" id=\"led-uveille\"></span>Veille restreinte</div>\n              <div class=\"srow\" data-info=\"diff\"><span class=\"led y\" id=\"led-udef\"></span>Défaut diffuseurs sonores</div>\n              <div class=\"srow\" data-info=\"diff\"><span class=\"led y\" id=\"led-uhs\"></span>Diffuseurs sonores hors service</div>\n              <div class=\"srow\" data-info=\"aux\"><span class=\"led y\" id=\"led-uaux\"></span>Contacts auxiliaires hors service</div>\n            </div>\n          </div>\n          <div class=\"cmsi\" data-info=\"cmsi\">\n            <div class=\"ttl\">CMSI <small>NF S 61-934 · NF S 61-935</small></div>\n            <div class=\"chead\"><span></span><span></span><span class=\"cl\"><i>Sécu.</i><i>Dér.</i><i>Bilan</i></span><span>Cde</span></div>\n            <div class=\"cmsi-rows\" id=\"cmsiRows\"></div>\n            <div class=\"bilanrow\"><button class=\"pbtn sm\" data-act=\"bilan\" data-info=\"bilan\" aria-label=\"Bilan\"></button><span class=\"lbl\">Bilan</span></div>\n          </div>\n        </div>\n      </div>\n      <div class=\"plate\">\n        <span class=\"code\" data-info=\"code\">CODE DE RÉARMEMENT : AABC</span>\n        <span class=\"brand\">KARA-8 UP · ECS/CMSI AB</span>\n      </div>\n    </div>\n\n    <div class=\"aesbox\" data-pane=\"panel\" data-info=\"aes\" id=\"aesBox\">\n      <div class=\"aes-l\">\n        <span class=\"aesled\"><span class=\"led g on\" id=\"aes-sect\"></span>Secteur</span>\n        <span class=\"aesled\"><span class=\"led g on\" id=\"aes-bat\"></span>Batterie</span>\n        <span class=\"aesled\"><span class=\"led g on\" id=\"aes-o1\"></span>Sortie 1</span>\n        <span class=\"aesled\"><span class=\"led g on\" id=\"aes-o2\"></span>Sortie 2</span>\n      </div>\n      <div class=\"aes-r\"><b>AES</b><small>Alimentation électrique de sécurité (SLAT), à côté du tableau</small></div>\n    </div>\n\n    <div class=\"card uslegend\" data-pane=\"panel\">\n      <h3>Lire les voyants des DAS (CMSI)</h3>\n      <p class=\"uslead\">D'après la notice Finsécur du KARA 8 UP : chaque fonction (VDF, CCF, PCF) a trois voyants. Sur ta façade, ils peuvent être cachés sous les étiquettes.</p>\n      <div class=\"usgrid\">\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led g on\"></span></span><div><b>Bilan vert</b><span>En appuyant sur « Bilan » : les DAS sont en position d'attente et aucune ligne n'est en défaut. Tout va bien.</span></div></div>\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led r on\"></span></span><div><b>Sécurité rouge fixe</b><span>Les DAS commandés ont atteint leur position de sécurité (porte et clapet fermés, volet ouvert).</span></div></div>\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led r on blink\"></span></span><div><b>Sécurité rouge clignotant</b><span>Les DAS ont été commandés mais ne sont pas tous arrivés en position de sécurité : aller voir sur place (porte bloquée, clapet coincé…).</span></div></div>\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led y on\"></span></span><div><b>Dérangement jaune fixe</b><span>Une liaison avec les DAS est coupée ou en court-circuit : main courante et technicien.</span></div></div>\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led y on blink\"></span></span><div><b>Dérangement jaune clignotant</b><span>Les DAS ne sont pas tous revenus en position d'attente : il faut les réarmer sur place (porte contre sa ventouse, clapet, volet).</span></div></div>\n      </div>\n      <p class=\"usnote\">Après le réarmement du tableau, le rouge s'éteint. Si une porte coupe-feu n'a pas été remise en place, le jaune clignote jusqu'à ce que tu la réarmes.</p>\n      <p class=\"usnote\">Piège du QCM : un rouge clignotant n'indique pas « DAS en position de sécurité », mais des DAS qui ne l'ont pas encore tous atteinte.</p>\n    </div>\n\n    <div class=\"acts\" data-pane=\"acts\">\n      <h3>Actions sur le terrain</h3>\n      <div class=\"grid\" id=\"actGrid\">\n        <button class=\"abtn\" data-act=\"ldd\">Levée de doute<small>Aller vérifier sur place</small></button>\n        <button class=\"abtn\" data-act=\"dmkey\">Réarmer le DM<small>Clé sous le boîtier</small></button>\n        <button class=\"abtn\" data-act=\"appel\">Appeler le 18 / 112<small>Message d'alerte</small></button>\n        <button class=\"abtn\" data-act=\"accueil\">Accueillir les secours<small>Guider jusqu'au sinistre</small></button>\n        <button class=\"abtn\" data-act=\"tech\">Prévenir le service technique<small>En cas de dérangement</small></button>\n        <button class=\"abtn\" data-act=\"dasreset\">Réarmer les DAS sur le terrain<small>Porte contre la ventouse, « clac »</small></button>\n        <button class=\"abtn\" data-act=\"mc\">Main courante<small>Rendre compte et noter</small></button>\n      </div>\n      <div class=\"free\" id=\"free\" hidden>\n        <h3 style=\"margin-top:14px\">Mode libre : déclencher un événement</h3>\n        <div class=\"grid\" id=\"freeGrid\"></div>\n      </div>\n    </div>\n\n    <div id=\"result\" data-pane=\"fiche\"></div>\n    <div class=\"cols\" data-pane=\"fiche\">\n      <div class=\"card m-only\">\n        <h3>Rappel du tableau</h3>\n        <p style=\"margin:0;font-size:.92rem\">Identifier la zone concernée et prévenir le service de sécurité. Arrêter le signal sonore. Après la disparition de la cause de l'alarme, accéder au niveau 2 et réarmer le tableau. En cas de dérangement (voyant jaune allumé), prévenir immédiatement le service technique.</p>\n      </div>\n      <div class=\"card\">\n        <h3>Fiche réflexe</h3>\n        <ol class=\"steps\" id=\"steps\"><li><span>Choisis un scénario.</span></li></ol>\n      </div>\n      <div class=\"card\">\n        <h3>Journal</h3>\n        <ul class=\"log\" id=\"log\"><li><span class=\"empty-note\">Les événements et tes actions s'afficheront ici.</span></li></ul>\n      </div>\n    </div>\n    </div>\n  </section>\n\n  <section class=\"tab\" id=\"t-sch\">\n    <h2>SSI = SDI + SMSI</h2>\n    <p class=\"lead\">Les schémas de la salle, en interactif. En mode révision, les cases sont masquées : retrouve chaque élément de tête, puis touche la case pour vérifier.</p>\n    <div class=\"modebar\">\n      <button class=\"tbtn\" id=\"revBtn\" aria-pressed=\"false\">Mode révision</button>\n      <button class=\"tbtn\" id=\"revReset\">Tout remasquer</button>\n    </div>\n\n    <div id=\"schemes\">\n      <div class=\"tree\">\n        <div class=\"box big\" data-a>SSI<small>Système de sécurité incendie</small></div>\n        <div aria-hidden=\"true\">↙ ↘</div>\n        <div class=\"row\">\n          <div class=\"box\" data-a>SDI<small>détecte, collecte</small></div>\n          <div class=\"box\" data-a>SMSI<small>traite, met en sécurité</small></div>\n        </div>\n      </div>\n\n      <div class=\"scheme\">\n        <h3>SDI</h3>\n        <p class=\"hand\">collecte</p>\n        <div class=\"flow\">\n          <div class=\"box blue\" data-a>DAI<small>détecteur auto</small></div><div class=\"arrow\">→</div><div class=\"box orange\" data-a>ECS<small>contrôle et signalisation</small></div>\n          <div class=\"note\">Zone surveillée : <span class=\"zone-tag\">ZDA</span> zone de détection automatique</div>\n          <div class=\"box blue\" data-a>DM<small>déclencheur manuel</small></div><div class=\"arrow\">→</div><div class=\"box orange\" data-a>ECS</div>\n          <div class=\"note\">Zone surveillée : <span class=\"zone-tag\">ZDM</span> zone de détection manuelle</div>\n          <div class=\"box blue\" data-a>AES<small>alimentation de sécurité</small></div><div class=\"arrow\">→</div><div class=\"box orange\" data-a>ECS</div>\n          <div class=\"note\">Autonomie AES du SDI (selon le schéma du cours) : <b>12 h + 10 min</b></div>\n        </div>\n        <div class=\"dots\"><span class=\"dot\" style=\"background:#e3271c\"></span><span class=\"dot\" style=\"background:#1d7a3a\"></span><span class=\"dot\" style=\"background:#f2cf1c\"></span></div>\n      </div>\n\n      <div class=\"scheme\">\n        <h3>SMSI</h3>\n        <p class=\"hand\">CMSI : traite · DAS : mise en sécurité</p>\n        <div class=\"flow\">\n          <div class=\"box blue\" data-a>AES</div><div class=\"arrow\">+</div><div class=\"box orange\" data-a>CMSI<small>centralisateur de mise en sécurité</small></div>\n          <div class=\"note\">Autonomie AES du CMSI (selon le schéma du cours) : <b>12 h + 1 h</b></div>\n          <div class=\"box blue\" data-a>US<small>unité de signalisation</small></div><div class=\"arrow\">=</div><div class=\"box\" data-a>État, position<small>des DAS, par voyants</small></div>\n          <div class=\"box blue\" data-a>UCMC<small>commande manuelle centralisée</small></div><div class=\"arrow\">→</div><div class=\"box blue\" data-a>1) Compartimentage<span class=\"zone-tag\">ZC</span></div>\n          <div class=\"box blue\" data-a>UCMC</div><div class=\"arrow\">→</div><div class=\"box blue\" data-a>2) Désenfumage<span class=\"zone-tag\">ZF</span></div>\n          <div class=\"box blue\" data-a>UGA<small>gestion d'alarme</small></div><div class=\"arrow\">→</div><div class=\"box dgreen\" data-a>3) Évacuation<span class=\"zone-tag\">ZA</span></div>\n          <div class=\"box blue\" data-a>UGCIS<small>gestion des issues de secours</small></div><div class=\"arrow\">→</div><div class=\"box dgreen\" data-a>4) Issues de secours</div>\n          <div class=\"note\">UCMC = les boutons rouges devant chaque DAS. UGA = processus d'alarme avec temporisation (5 min max). UGCIS = déverrouille les issues à ventouses ; en secours, BDIS vert à côté de la porte.</div>\n        </div>\n        <p style=\"text-align:center;margin:12px 0 0;font-weight:600\">Tout ça commande les <span class=\"box orange\" style=\"display:inline-block;padding:2px 10px\" data-a>DAS</span> (dispositifs actionnés de sécurité)</p>\n        <p style=\"font-size:.88rem;margin:10px 0 0;color:#333\">Compartimentage : portes et clapets coupe-feu. Désenfumage : exutoires, ouvrants, coffrets de relayage. Évacuation : déverrouillage des issues de secours.</p>\n      </div>\n    </div>\n\n    <div class=\"card\" style=\"margin-bottom:16px\">\n      <h3>Code couleur des voyants</h3>\n      <div class=\"vleg\">\n        <div><span class=\"dot\" style=\"background:#e3271c\"></span><span><b>Rouge</b> : alarme feu, une détection est en cours.</span></div>\n        <div><span class=\"dot\" style=\"background:#1d7a3a\"></span><span><b>Vert</b> : sous tension, fonctionnement normal.</span></div>\n        <div><span class=\"dot\" style=\"background:#f2cf1c\"></span><span><b>Jaune</b> : dérangement, défaut, hors service ou essai. On prévient le service technique.</span></div>\n      </div>\n      <h3 style=\"margin-top:16px\">Voyants des DAS au CMSI (notice KARA 8 UP)</h3>\n      <div class=\"usgrid\">\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led g on\"></span></span><div><b>Bilan vert</b><span>DAS en position d'attente, aucune ligne en défaut.</span></div></div>\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led r on\"></span></span><div><b>Sécurité rouge fixe</b><span>DAS en position de sécurité.</span></div></div>\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led r on blink\"></span></span><div><b>Sécurité rouge clignotant</b><span>DAS commandés mais pas tous arrivés en sécurité : aller voir sur place.</span></div></div>\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led y on\"></span></span><div><b>Dérangement jaune fixe</b><span>Ligne coupée ou en court-circuit : technicien.</span></div></div>\n        <div class=\"usrow\"><span class=\"ledbox\"><span class=\"led y on blink\"></span></span><div><b>Dérangement jaune clignotant</b><span>DAS pas tous revenus en position d'attente : les réarmer sur place.</span></div></div>\n      </div>\n      <p class=\"empty-note\" style=\"margin-top:10px\">Piège du QCM de la formation : à « que signifie un voyant rouge clignotant sur l'US », la réponse « DAS en position de sécurité » est fausse. La bonne réponse était « aucune des réponses précédentes ».</p>\n    </div>\n\n    <div class=\"card\" style=\"margin-bottom:16px\">\n      <h3>Niveaux d'accès du SSI</h3>\n      <ol class=\"msg\" style=\"counter-reset:m -1\">\n        <li><span><b>Tout public</b><br>Percuter un DM.</span></li>\n        <li><span><b>Agents de sécurité</b><br>Arrêter le signal sonore, acquitter le processus.</span></li>\n        <li><span><b>Code ou clé</b><br>Réarmer le système (ici le code AABC).</span></li>\n        <li><span><b>Techniciens de maintenance</b><br>Réglages poussés.</span></li>\n        <li><span><b>Fabricant</b><br>Programmation et modifications matérielles.</span></li>\n      </ol>\n    </div>\n    <div class=\"card\" style=\"margin-bottom:16px\">\n      <h3>DM rouge ou BDIS vert ?</h3>\n      <div class=\"vleg\">\n        <div><span class=\"dot\" style=\"background:#e3271c\"></span><span><b>DM, rouge</b> : fait partie du SDI. Placé près des portes, dans les circulations, dégagements et sorties. Sert à signaler un départ de feu.</span></div>\n        <div><span class=\"dot\" style=\"background:#1e7a46\"></span><span><b>BDIS, vert</b> : boîtier de déverrouillage d'issue de secours. Ne déclenche aucune alarme : il libère la ventouse d'une issue si l'UGCIS est défaillante.</span></div>\n      </div>\n    </div>\n\n    <h2>Sigles</h2>\n    <p class=\"lead\">Touche une carte pour voir la réponse.</p>\n    <div class=\"modebar\"><button class=\"tbtn\" id=\"fcShuffle\">Mélanger</button><button class=\"tbtn\" id=\"fcClose\">Tout retourner</button></div>\n    <div class=\"flash\" id=\"flash\"></div>\n  </section>\n\n  <!-- ================= RONDE ================= -->\n  <section class=\"tab\" id=\"t-ronde\">\n    <h2>Ronde : anomalies et sinistres</h2>\n    <p class=\"lead\">À l'épreuve pratique, tu fais une ronde avec des anomalies et un sinistre à gérer. Lis la situation, dis à voix haute ce que tu fais, puis vérifie.</p>\n    <div class=\"scorebar\" id=\"rscore\"></div>\n    <div class=\"modebar\"><button class=\"tbtn\" id=\"rShuffle\">Mélanger</button><button class=\"tbtn\" id=\"rReset\">Recommencer</button></div>\n    <div class=\"rcards\" id=\"rcards\"></div>\n  </section>\n\n  <!-- ================= ALERTE ================= -->\n  <section class=\"tab\" id=\"t-alerte\">\n    <h2>Numéros d'urgence</h2>\n    <p class=\"lead\">Les numéros de l'affiche de la salle. Touche une carte pour révéler le numéro.</p>\n    <div class=\"nums\" id=\"nums\"></div>\n\n    <h2>Le message d'alerte</h2>\n    <p class=\"lead\">Dans l'ordre, calmement, en articulant.</p>\n    <div class=\"card\">\n      <ol class=\"msg\">\n        <li><span><b>Qui tu es</b><br>Nom, fonction (agent de sécurité incendie), numéro où te rappeler.</span></li>\n        <li><span><b>Où</b><br>Adresse exacte, bâtiment, étage, local, accès le plus simple.</span></li>\n        <li><span><b>Quoi</b><br>Nature du sinistre : feu, fumée, malaise, fuite… et son évolution.</span></li>\n        <li><span><b>Victimes</b><br>Nombre, état apparent, gestes déjà faits.</span></li>\n        <li><span><b>Actions engagées</b><br>Évacuation lancée, extincteur utilisé, désenfumage, coupures.</span></li>\n        <li><span><b>Ne pas raccrocher le premier</b><br>Attendre que l'opérateur termine, répondre à ses questions.</span></li>\n      </ol>\n    </div>\n    <div class=\"card\" style=\"margin-top:12px\">\n      <h3>Accueil des secours</h3>\n      <p style=\"margin:0\">Envoyer quelqu'un les attendre à l'entrée, dégager l'accès, préparer clés et plans, les guider jusqu'au sinistre et leur faire un point rapide : ce qui s'est passé, victimes, personnes manquantes, actions faites.</p>\n    </div>\n  </section>\n</div>\n\n<div class=\"sheet\" id=\"sheet\" role=\"dialog\" aria-live=\"polite\"><button id=\"sheetClose\" aria-label=\"Fermer\">×</button><b id=\"sheetT\"></b><div id=\"sheetB\"></div></div>\n<div class=\"toast\" id=\"toast\" role=\"status\"></div>";
+function mount(host){
+if(!host) return;
+const R=host.shadowRoot||host.attachShadow({mode:'open'});
+R.innerHTML='<style>'+CSS+'</style><div class="wrap">'+HTML;
+
+const $=s=>R.querySelector(s), $$=s=>[...R.querySelectorAll(s)];
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- tabs ---------- */
+$$('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  $$('nav.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  $$('section.tab').forEach(s=>s.classList.toggle('on',s.id==='t-'+b.dataset.tab));
+  host.scrollIntoView({block:'start'});
+}));
+
+/* ---------- toast / sheet ---------- */
+let toastT;
+function toast(msg,bad,ms){const t=$('#toast');t.textContent=msg;t.className='toast on'+(bad?' err':'');clearTimeout(toastT);toastT=setTimeout(()=>t.className='toast',ms||Math.max(3200,msg.length*55));}
+function sheet(t,b){$('#sheetT').textContent=t;$('#sheetB').textContent=b;$('#sheet').classList.add('on');}
+$('#sheetClose').onclick=()=>$('#sheet').classList.remove('on');
+
+/* ================= SIMULATEUR ================= */
+const ZONES=[
+  {n:1,label:'ZDA 02 SALLE DE COURS',type:'DAI',det:'optique'},
+  {n:2,label:'ZDA 01 PCS OPTIQUE',type:'DAI',det:'optique'},
+  {n:3,label:'ZDM 01 ENTRÉE PRINCIPALE',type:'DM'},
+  {n:4,label:'ZDA 01 PCS THERMIQUE',type:'DAI',det:'thermique'},
+  {n:5,label:''},{n:6,label:''},{n:7,label:''},{n:8,label:''}
+];
+const USED=[1,2,3,4];
+const TEMPO=120;
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+
+const INFO={
+  zone:['Boucle de détection','Chaque ligne = une zone. À droite, voyant rouge : la zone est en alarme feu. Voyant jaune : fixe = boucle hors service ou en essai, clignotant = défaut sur la boucle (détecteur arraché, câble coupé…). ZDA = détection automatique, ZDM = déclencheurs manuels.'],
+  feu:['Voyant FEU','Une alarme feu est en cours. Premier réflexe : couper le sonore et repérer quelle zone est allumée à gauche.'],
+  tension:['Sous tension','Le tableau est alimenté. Ce voyant vert doit toujours être allumé.'],
+  defgen:['Défaut général','S\'allume dès qu\'un défaut est présent. Regarde quel autre voyant jaune est allumé pour savoir lequel.'],
+  defsys:['Défaut système / tableau hors service','Le tableau lui-même ne fonctionne plus correctement. Prévenir immédiatement le service technique.'],
+  defsect:['Défaut secteur','L\'alimentation principale est coupée. Le système tourne sur l\'AES (batteries), avec une autonomie limitée.'],
+  defbat:['Défaut batterie','La batterie de secours du tableau est en défaut : en cas de coupure secteur, l\'autonomie n\'est plus garantie.'],
+  defbatc:['Défaut batterie CMSI','La batterie qui alimente la partie mise en sécurité (CMSI) est en défaut.'],
+  hs:['Hors service','Au moins une boucle est hors service : elle ne détecte plus. Procédure de la notice : code niveau 2, touche B (le voyant jaune de la boucle 1 clignote), A ↑ / C ↓ pour choisir, B pour mettre hors service ou en service, Réarmement pour sortir.'],
+  essai:['Essai','Une boucle est en mode essai (maintenance).'],
+  niveau:['Niveau 2 / 3 (jaune)','Fixe = niveau 2 (code AABC), clignotant = niveau 3 (code AACC, techniciens). Sur ce tableau, d\'après la notice : niveau 1 = arrêt signaux sonores, essai signalisations, évacuation générale, commandes manuelles, bilan. Niveau 2 = réarmement, acquittement processus, veille restreinte, mise hors service des boucles.'],
+  us_old:['Voyant de l\'US','Vert ou éteint : position d\'attente. Rouge fixe : DAS en position de sécurité. Rouge clignotant : le DAS n\'est pas revenu en position d\'attente, le réarmer depuis le SSI ou sinon sur place. Orange fixe : dérangement, appeler le technicien. Orange clignotant : défaut de position d\'attente (à confirmer avec le moniteur).'],
+  sonore:['Arrêt signaux sonores','Première action : couper le buzzer pour pouvoir se concentrer. Niveau 1. N\'arrête pas l\'alarme générale d\'évacuation.'],
+  rearm:['Réarmement','Niveau 2. Remet le tableau en veille une fois la cause disparue (local aéré, DM réarmé à la clé). Éteint aussi les voyants Sécurité du CMSI : ne pas oublier ensuite de réarmer les DAS sur le terrain. Sert aussi à sortir du mode en/hors service.'],
+  lamp:['Essai signalisations','Niveau 1. Allume tous les voyants de l\'ECS et du CMSI et fait sonner le buzzer, pour vérifier qu\'aucun n\'est grillé. À faire à la prise de service.'],
+  abc:['Touches A, B, C','Saisie des codes (AABC = niveau 2, AACC = niveau 3). En niveau 2 : B ouvre le mode en/hors service, A ↑ et C ↓ déplacent le curseur sur les boucles, B valide.'],
+  consigne:['Consigne du tableau','Le texte imprimé sur la façade : identifier la zone et prévenir, arrêter le signal sonore, puis niveau 2 et réarmement une fois la cause disparue. Voyant jaune = prévenir le service technique.'],
+  uga:['UGA','Unité de Gestion d\'Alarme (norme NF S 61-936) : elle gère le processus d\'alarme et commande les diffuseurs d\'évacuation.'],
+  acq:['Acquittement processus','Stoppe le processus d\'alarme pendant la temporisation qui précède l\'évacuation générale (réglable de 0 à 5 min). Sur ce tableau, la notice indique le niveau 2 : il faut d\'abord taper le code AABC.'],
+  veille:['Veille restreinte','Niveau 2. Empêche le signal d\'évacuation de se déclencher sur une alarme feu ; la commande manuelle d\'évacuation générale reste active. À n\'utiliser que sur consigne.'],
+  evac:['Commande évacuation générale','Niveau 1. Maintenir 3 secondes : le signal d\'évacuation générale sonne pendant 5 minutes. Fonctionne même en veille restreinte.'],
+  ugaalarme:['Voyant Alarme (UGA)','Rouge fixe : l\'UGA a reçu l\'information « alarme feu » de l\'ECS.'],
+  secu:['Voyant Sécurité (rouge)','Fixe : les DAS commandés ont atteint leur position de sécurité. Clignotant : ils ne l\'ont pas encore tous atteinte, aller voir sur place.'],
+  derang:['Voyant Dérangement (jaune)','Fixe : liaison avec les DAS coupée ou en court-circuit, appeler le technicien. Clignotant : les DAS ne sont pas tous revenus en position d\'attente, les réarmer sur place.'],
+  bilan:['Bilan','Niveau 1. Pendant l\'appui, le voyant vert de chaque fonction s\'allume si ses DAS sont en position d\'attente et sans défaut. À faire à la prise de service.'],
+  evacled:['Voyant Évacuation générale','L\'alarme générale sonne dans l\'établissement.'],
+  diff:['Diffuseurs sonores','Jaune = défaut ou mise hors service des diffuseurs d\'évacuation : l\'alarme générale risque de ne pas être entendue.'],
+  aux:['Contacts auxiliaires hors service','Les sorties qui commandent d\'autres équipements (déverrouillage, arrêt de ventilation…) sont hors service.'],
+  cmsi:['CMSI','Centralisateur de mise en sécurité (normes NF S 61-934 et 61-935), « l\'ordinateur de bord » : il traite les informations du SDI et commande les DAS. Les boutons rouges devant chaque DAS forment l\'UCMC.'],
+  VDF:['VDF, volet de désenfumage','Désenfumage : s\'ouvre pour évacuer les fumées. Le bouton rouge (UCMC) le commande à la main, niveau 1, sans temporisation.'],
+  CCF:['CCF, clapet coupe-feu','Compartimentage : se ferme dans les gaines pour bloquer le feu et la fumée. Bouton rouge = commande manuelle (UCMC).'],
+  PCF:['PCF, porte coupe-feu','Compartimentage : la ventouse électromagnétique la libère et elle se ferme. Après l\'alarme, il faut la ramener à la main contre sa ventouse jusqu\'au « clac ».'],
+  code:['Code de réarmement','Code d\'accès au niveau 2, saisi avec les touches A, B, C.'],
+  aes:['AES','Alimentation électrique de sécurité : elle prend le relais quand le secteur est coupé. Voyants verts = tout va bien. Secteur éteint = coupure secteur ; batterie orange = batterie en défaut.']
+};
+
+/* ---- modèles de fiches réflexes ---- */
+const STEPS={
+  fa:[['sonore','Arrêter les signaux sonores'],['zone','Identifier la zone (touche l\'étiquette de la boucle allumée)'],['ldd','Faire la levée de doute sur place'],['n2','Passer en niveau 2 avec le code AABC'],['acq','Fausse alerte confirmée : acquitter le processus'],['rearm','Réarmer le tableau'],['das','Réarmer les portes coupe-feu sur le terrain'],['mc','Rendre compte, noter en main courante']],
+  fr:[['sonore','Arrêter les signaux sonores'],['zone','Identifier la zone'],['ldd','Faire la levée de doute'],['evac','Déclencher l\'évacuation générale (appui 3 s)'],['appel','Appeler les secours (18 ou 112)'],['accueil','Accueillir et guider les secours'],['mc','Rendre compte, main courante']],
+  dm:[['sonore','Arrêter les signaux sonores'],['zone','Identifier la zone'],['ldd','Faire la levée de doute'],['n2','Passer en niveau 2 avec le code AABC'],['acq','Fausse alerte confirmée : acquitter le processus'],['dmkey','Réarmer le DM sur le terrain (clé sous le boîtier)'],['rearm','Réarmer le tableau'],['das','Réarmer les portes coupe-feu sur le terrain'],['mc','Rendre compte, main courante']],
+  def:[['ident','Identifier le défaut (touche le voyant jaune concerné)'],['sonore','Arrêter les signaux sonores'],['tech','Prévenir le service technique'],['mc','Noter en main courante']]
+};
+const CAUSES={
+  optique:['des travaux de ponçage ont soulevé de la poussière sous le détecteur','de la vapeur sort d\'une bouilloire posée sous le détecteur','quelqu\'un a fumé une cigarette juste sous le détecteur','un nettoyage à l\'aérosol a été fait sous le détecteur'],
+  thermique:['un chauffage d\'appoint a été posé juste sous le détecteur','un décapeur thermique est utilisé juste en dessous du détecteur']
+};
+const DEFS={
+  secteur:{led:'defsect',msg:'Défaut secteur : l\'alimentation principale est coupée, le système tourne sur l\'AES.',fix:'Le technicien a rétabli l\'alimentation secteur.'},
+  batterie:{led:'defbat',msg:'Défaut batterie : la batterie de secours du tableau est hors d\'usage.',fix:'Le technicien a remplacé la batterie.'},
+  boucle:{led:null,msg:'Défaut sur une boucle : un détecteur ne répond plus, la zone n\'est plus surveillée.',fix:'Le technicien a remis la boucle en état.'}
+};
+function lddText(kind,z){
+  if(kind==='fr')return z.type==='DM'?'Un témoin a actionné le DM : début d\'incendie dans le hall d\'entrée, flammes visibles. Le feu est réel.':'Feu confirmé dans la zone '+z.label+' : fumée épaisse et flammes. Le feu est réel.';
+  if(kind==='dm')return 'Zone '+z.label+' : aucun feu, aucune fumée. La vitre du déclencheur manuel est enfoncée : déclenchement par malveillance. Levée de doute négative.';
+  return 'Zone '+z.label+' : ni feu ni fumée, '+rnd(CAUSES[z.det||'optique'])+'. Local aéré, le détecteur revient au calme. Levée de doute négative.';
+}
+
+const SCEN={
+  libre:{name:'Libre',sub:'Déclenche ce que tu veux',brief:'Mode libre : utilise les boutons de l\'onglet Terrain pour déclencher une zone ou un défaut. Pas de fiche réflexe, juste le journal.'},
+  fa:{name:'Fausse alarme',sub:'DAI, salle de cours',kind:'fa',zone:1,brief:'Il est 14 h. Le buzzer du tableau se met à sonner. Gère l\'alarme.',ldd:'Zone ZDA 02 SALLE DE COURS : l\'agent sur place ne voit ni feu ni fumée, des travaux de ponçage ont soulevé de la poussière sous le détecteur. Local aéré, le détecteur revient au calme. Levée de doute négative.'},
+  fr:{name:'Feu réel',sub:'DAI, PCS thermique',kind:'fr',zone:4,brief:'Ronde terminée, tu es au PC. Le tableau passe en alarme feu. Gère l\'événement.',ldd:'Feu confirmé : fumée épaisse et flammes dans le local. Le feu est réel.'},
+  dm:{name:'DM actionné',sub:'Entrée principale',kind:'dm',zone:3,brief:'Le tableau sonne, un déclencheur manuel vient d\'être actionné. Gère l\'alarme.',ldd:'Aucun feu, aucune fumée. La membrane du déclencheur manuel est enfoncée : déclenchement par malveillance. Levée de doute négative.'},
+  def:{name:'Dérangement',sub:'Voyant jaune',kind:'def',defType:'secteur',brief:'Le tableau émet un bip et un voyant jaune s\'allume. Que fais-tu ?'},
+  sur:{name:'Examen surprise',sub:'Événement au hasard',surprise:true,brief:'Tu es au PC sécurité, comme le jour de l\'examen. Quelque chose va se passer sur le tableau : lis-le et réagis. La fiche réflexe reste cachée jusqu\'à la fin.'}
+};
+function stepsOf(sc){return sc&&sc.kind?STEPS[sc.kind]:[];}
+function rollSurprise(){
+  const r=Math.random();
+  if(r<.35)return {kind:'fa',zone:rnd([1,2,4])};
+  if(r<.6)return {kind:'fr',zone:rnd(USED)};
+  if(r<.8)return {kind:'dm',zone:3};
+  return {kind:'def',defType:rnd(['secteur','batterie','boucle']),defZone:rnd([1,2,4])};
+}
+
+let S, cur='libre', run=null, examMode=false;
+function fresh(){return {kind:null,feu:null,cause:false,feuReel:false,dm:false,buzzer:false,niveau:1,code:'',t:0,acq:false,evac:false,
+  das:{VDF:false,CCF:false,PCF:false},cmd:{VDF:false,CCF:false,PCF:false},mov:{VDF:0,CCF:0,PCF:0},bilan:false,evacT:0,evacDone:false,hsMode:false,def:null,defZone:null,hs:new Set(),sel:null,lamp:false,veille:false,ldd:'',lddMsg:'',lddNeg:true,appel:false,done:new Set(),errors:0,start:Date.now(),finished:false};}
+S=fresh();
+
+/* build zones + cmsi */
+$('#zoneRows').innerHTML=ZONES.map(z=>`<div class="zrow${z.label?'':' unused'}"><button class="ztag ${z.label?'':'empty'}" data-zone="${z.n}" data-info="zone"><span class="bn">B${z.n}</span>${z.label||'&nbsp;'}</button><span class="led y" id="led-b${z.n}d" data-info="zone"></span><span class="led r" id="led-b${z.n}f" data-info="zone"></span><span class="lbl">Boucle ${z.n}</span></div>`).join('')+`<div class="zunused">Boucles 5 à 8 : non utilisées</div>`;
+$('#cmsiRows').innerHTML=['VDF','CCF','PCF'].map(k=>`<div class="crow"><span class="ctag" data-info="${k}">${k}</span><span class="cstate" id="st-${k}">Attente</span><span class="cleds"><span class="led r" id="cs-${k}" data-info="secu"></span><span class="led y" id="cd-${k}" data-info="derang"></span><span class="led g" id="cb-${k}" data-info="bilan"></span></span><button class="rbtn" id="us-${k}" data-das="${k}" data-info="${k}" aria-label="Commande manuelle ${k}"></button></div>`).join('');
+function cmdDas(k){S.das[k]=true;S.cmd[k]=true;S.mov[k]=2;}
+
+/* scenario chips */
+function chipSub(k){const b=store.get('ssiap1c_terrain_best_'+k);return SCEN[k].sub+(b?' · record : '+b.e+' erreur'+(b.e>1?'s':''):'');}
+$('#scen').innerHTML=Object.keys(SCEN).map(k=>`<button class="chip${k===cur?' on':''}${k==='sur'?' sur':''}" data-sc="${k}"><b>${SCEN[k].name}</b><small>${chipSub(k)}</small></button>`).join('');
+$('#scen').addEventListener('click',e=>{const b=e.target.closest('[data-sc]');if(b)startScen(b.dataset.sc);});
+
+/* free mode buttons */
+$('#freeGrid').innerHTML=ZONES.filter(z=>z.label).map(z=>`<button class="abtn" data-free="${z.n}">${z.type==='DM'?'Actionner le DM':'Déclencher le détecteur'}<small>${z.label}</small></button>`).join('')
+ +`<button class="abtn" data-free="fr">Vrai feu au hasard<small>La levée de doute confirmera</small></button>`
+ +`<button class="abtn" data-free="def">Coupure secteur<small>Défaut secteur</small></button>`
+ +`<button class="abtn" data-free="bat">Batterie HS<small>Défaut batterie</small></button>`
+ +`<button class="abtn" data-free="bcl">Détecteur arraché<small>Défaut sur une boucle</small></button>`;
+$('#freeGrid').addEventListener('click',e=>{const b=e.target.closest('[data-free]');if(!b)return;ac();const f=b.dataset.free;
+  if(f==='def'||f==='bat'||f==='bcl'){if(S.def){toast('Un dérangement est déjà en cours.');return;}triggerDef({def:'secteur',bat:'batterie',bcl:'boucle'}[f],rnd([1,2,4]));return;}
+  if(S.feu){toast('Une alarme est déjà en cours : traite-la d\'abord.');return;}
+  if(f==='fr'){S.kind='fr';triggerZone(rnd(USED));return;}
+  const z=ZONES[+f-1];S.kind=z.type==='DM'?'dm':'fa';triggerZone(z.n);
+});
+
+function startScen(k){
+  cur=k;S=fresh();
+  const sc=SCEN[k];
+  run=sc.surprise?Object.assign({},sc,rollSurprise()):Object.assign({},sc);
+  if(run.kind==='fa'&&!sc.ldd)run.ldd=null;
+  $$('#scen .chip').forEach(c=>c.classList.toggle('on',c.dataset.sc===k));
+  $('#brief').innerHTML='<strong>Consigne</strong> : '+sc.brief;
+  $('#free').hidden=k!=='libre';
+  $('#result').innerHTML='';$('#log').innerHTML='';
+  if(sc.surprise&&!examMode)setExam(true);
+  renderSteps();render();ac();setView('panel');
+  if(k==='libre'){log('Mode libre activé.');return;}
+  log('Début du scénario : '+sc.name+'.');
+  const delay=sc.surprise?2500+Math.random()*3500:1500;
+  setTimeout(()=>{ if(cur!==k||S.feu||S.def)return;
+    if(run.kind==='def')triggerDef(run.defType,run.defZone);
+    else {S.kind=run.kind;triggerZone(run.zone);} },delay);
+}
+
+function triggerZone(n){
+  const z=ZONES[n-1];
+  if(S.hs.has(n)){log('Détection sur la boucle '+n+', mais elle est HORS SERVICE : rien ne remonte au tableau !','err');toast('Boucle '+n+' hors service : la détection ne remonte pas. Remets-la en service.',true);return;}
+  S.feu=n;S.cause=true;S.buzzer=true;S.acq=false;S.evacDone=false;S.t=TEMPO;S.ldd='';S.lddMsg='';S.feuReel=false;S.start=Date.now();
+  if(z.type==='DM')S.dm=true;
+  ['VDF','CCF','PCF'].forEach(cmdDas);
+  log('Alarme feu boucle '+n+'. Le CMSI commande automatiquement VDF, CCF et PCF (paramétrage par défaut : toutes les fonctions sur toutes les boucles).','err');
+  render();
+}
+function triggerDef(type,zone){
+  S.kind=S.kind||'def';S.def=type;S.defZone=type==='boucle'?zone:null;S.buzzer=true;S.start=Date.now();
+  log('Dérangement signalé au tableau (voyant jaune).','err');render();
+}
+
+/* step tracking */
+function renderSteps(){
+  const st=stepsOf(run);const ol=$('#steps');
+  if(!st.length){ol.innerHTML='<li><span>Pas de fiche en mode libre.</span></li>';return;}
+  ol.innerHTML=st.map(([id,t])=>`<li class="${S.done.has(id)?'done':''}"><span>${t}</span></li>`).join('');
+  ol.classList.toggle('hide',(examMode||!!(run&&run.surprise))&&!S.finished);
+}
+function step(id){
+  const st=stepsOf(run);if(!st.length||S.finished)return;
+  const ids=st.map(s=>s[0]);if(!ids.includes(id)||S.done.has(id))return;
+  const FREE=new Set(['das','n2']);
+  const expected=ids.find(x=>!S.done.has(x)&&!FREE.has(x));
+  if(!FREE.has(id)&&expected!==id){const t=st.find(s=>s[0]===expected)[1];log('Fait, mais dans le désordre. Avant ça : « '+t+' ».','err');S.errors++;}
+  S.done.add(id);renderSteps();renderHud();
+  if(ids.every(x=>S.done.has(x)))finish();
+}
+function err(msg){S.errors++;log(msg,'err');toast(msg,true);}
+function finish(){
+  S.finished=true;
+  const secs=Math.round((Date.now()-S.start)/1000);
+  const e=S.errors;
+  const key='ssiap1c_terrain_best_'+cur;const best=store.get(key);
+  if(!best||e<best.e||(e===best.e&&secs<best.t))store.set(key,{e,t:secs});
+  const what=run.surprise?`<p style="margin:0 0 6px"><b>C'était :</b> ${({fa:'une fausse alarme',fr:'un vrai feu',dm:'un DM actionné par malveillance',def:'un dérangement'})[run.kind]}.</p>`:'';
+  const verdict=e===0?'Sans faute. C\'est exactement ce qu\'on attend le jour J.':e<=2?'Bien géré, quelques erreurs à corriger. Relis le journal.':'Trop d\'erreurs pour l\'examen. Relance le scénario en suivant la fiche réflexe.';
+  $('#result').innerHTML=`<div class="result"><h3>Scénario terminé</h3>${what}<p style="margin:0">${e} erreur${e>1?'s':''}, ${Math.floor(secs/60)} min ${secs%60} s. ${verdict}</p><button class="tbtn" style="margin-top:10px" id="again">${run.surprise?'Nouvel événement surprise':'Recommencer'}</button></div>`;
+  $('#again').onclick=()=>startScen(cur);
+  renderSteps();
+  log('Scénario terminé.','good');
+  if(isMobile())setTimeout(()=>{setView('fiche');toTop();},900);
+  const c=$('#scen [data-sc="'+cur+'"] small');if(c)c.textContent=chipSub(cur);
+}
+
+/* log */
+function log(msg,cls){
+  const ul=$('#log');if(ul.querySelector('.empty-note'))ul.innerHTML='';
+  const d=new Date();const t=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  const li=document.createElement('li');li.innerHTML=`<time>${t}</time><span class="${cls||''}"></span>`;li.querySelector('span').textContent=msg;
+  ul.prepend(li);
+}
+
+/* render panel */
+function L(id,on,blink){const e=$('#led-'+id);if(!e)return;const o=!!(on||S.lamp);e.classList.toggle('on',o);e.classList.toggle('blink',o&&!S.lamp&&!!blink);}
+function render(){
+  ZONES.forEach(z=>{
+    L('b'+z.n+'f',S.feu===z.n);
+    const hs=S.hs.has(z.n),dz=S.def==='boucle'&&S.defZone===z.n;
+    const cur_=S.hsMode&&S.sel===z.n;
+    L('b'+z.n+'d',hs||dz||cur_,(dz&&!hs)||cur_);
+    const t=$('[data-zone="'+z.n+'"]');t.classList.toggle('sel',cur_);t.classList.toggle('hs',hs);
+  });
+  $('#led-feu').classList.toggle('on',!!(S.feu||S.lamp));
+  L('defgen',!!S.def);L('defsect',S.def==='secteur');L('defbat',S.def==='batterie');L('defsys',0);L('defbatc',0);
+  L('hs',S.hs.size>0);L('essai',0);
+  L('n2',S.niveau>=2,S.niveau===3);
+  L('ualarme',S.feu||S.evac||S.evacDone);
+  L('uveille',S.veille);L('udef',0);L('uhs',0);L('uaux',0);L('uevac',S.evac);
+  ['VDF','CCF','PCF'].forEach(k=>{const e=$('#st-'+k);const on=S.das[k]||S.lamp;e.textContent=on?'Sécurité':'Attente';e.classList.toggle('sec',on);
+    const cs=$('#cs-'+k),cd=$('#cd-'+k),cb=$('#cb-'+k);
+    cs.classList.toggle('on',S.lamp||S.cmd[k]);cs.classList.toggle('blink',!S.lamp&&S.cmd[k]&&S.mov[k]>0);
+    cd.classList.toggle('on',S.lamp||(!S.cmd[k]&&S.das[k]));cd.classList.toggle('blink',!S.lamp&&!S.cmd[k]&&S.das[k]);
+    cb.classList.toggle('on',S.lamp||(S.bilan&&!S.das[k]&&!S.cmd[k]));});
+  // AES
+  const A=(id,cls)=>{const e=$('#'+id);e.className='led '+cls;};
+  A('aes-sect',S.lamp?'g on':S.def==='secteur'?'g':'g on');
+  A('aes-bat',S.lamp?'g on':S.def==='batterie'?'y on blink':'g on');
+  A('aes-o1','g on');A('aes-o2','g on');
+  $('#codeview').textContent=S.hsMode?'En/hors service · boucle '+S.sel+' · B = '+(S.hs.has(S.sel)?'remettre en service':'mettre hors service')+' · Réarmement = sortir':S.niveau>=2?'Niveau '+S.niveau+' · B = mode en/hors service':(S.code?'Code : '+'•'.repeat(S.code.length):'');
+  const tp=$('#tempo');
+  if(S.feu&&!S.evac&&!S.veille&&!S.acq){
+    tp.hidden=false;const v=Math.max(0,S.t);
+    $('#tempoTxt').textContent='Temporisation avant alarme générale';$('#tempoSec').textContent=Math.floor(v/60)+':'+String(v%60).padStart(2,'0');
+    $('#tempoBar').style.width=(v/TEMPO*100)+'%';tp.classList.toggle('urgent',v<=15);
+  } else tp.hidden=true;
+  renderHud();
+}
+function renderHud(){
+  const led=$('#hudLed'),t=$('#hudTitle'),s=$('#hudSub');
+  let cls='',title='Veille',sub='Aucune alarme en cours';
+  if(S.evac){cls='evac';title='ÉVACUATION GÉNÉRALE';sub=(S.feu?ZONES[S.feu-1].label+' · ':'')+'signal '+Math.floor(S.evacT/60)+':'+String(S.evacT%60).padStart(2,'0');}
+  else if(S.feu){const z=ZONES[S.feu-1];cls='feu';title='FEU · Boucle '+z.n+' ('+z.type+')';sub=z.label;}
+  else if(S.def){cls='def';title='DÉRANGEMENT';sub='Voyant jaune allumé au tableau';}
+  else if(S.hs.size){title='Tableau en veille';sub='Attention : boucle hors service';}
+  else if(Object.values(S.cmd).some(Boolean)){title='DAS commandés';sub='Voyants Sécurité allumés : réarmement niveau 2';}
+  else if(Object.values(S.das).some(Boolean)){title='Tableau en veille';sub='DAS pas revenus en position d\'attente';}
+  if(S.ldd==='cours')sub='Levée de doute en cours…';
+  else if(S.ldd==='done'&&S.lddMsg&&(S.feu||S.evac))sub=S.lddNeg?'Levée de doute : NÉGATIVE':'Levée de doute : FEU CONFIRMÉ';
+  if(examMode&&!S.finished){
+    if(S.evac)title='ÉVACUATION GÉNÉRALE';else if(S.feu)title='Le tableau sonne';else if(S.def)title='Le tableau bipe';
+    if(S.feu||S.def||S.evac){if(S.ldd!=='cours'&&!(S.ldd==='done'&&S.lddMsg))sub='Lis le tableau';}
+  }
+  led.className='hud-led'+(cls?' '+cls:'');t.textContent=title;s.textContent=sub;
+  const n=$('#hudNiv');n.textContent='Niveau '+S.niveau;n.classList.toggle('on',S.niveau>=2);
+  const so=$('#hudSon');so.textContent=S.evac?'Sirène':S.buzzer?'Buzzer':S.acq?'Acquitté':'Silence';so.className='hchip'+((S.buzzer||S.evac)?' alert':S.acq?' on':'');
+  const bar=$('#hudBar');
+  if(S.feu&&!S.evac&&!S.veille&&!S.acq){const v=Math.max(0,S.t);bar.hidden=false;$('#hudFill').style.width=(v/TEMPO*100)+'%';
+    $('#hudBarTxt').textContent='Alarme générale dans '+Math.floor(v/60)+':'+String(v%60).padStart(2,'0');bar.classList.toggle('urgent',v<=15);}
+  else bar.hidden=true;
+  const st=stepsOf(run);$('#segN').textContent=st.length?S.done.size+'/'+st.length:'';
+}
+
+/* tick */
+const iv1=setInterval(()=>{
+  if(!host.isConnected){clearInterval(iv1);return;}
+  let ch=false;
+  ['VDF','CCF','PCF'].forEach(k=>{if(S.mov[k]>0){S.mov[k]--;ch=true;}});
+  if(S.evac){S.evacT--;ch=true;if(S.evacT<=0){S.evac=false;S.evacDone=true;log('Fin du signal d\'évacuation générale (5 minutes).');}}
+  if(S.feu&&!S.evac&&!S.evacDone&&!S.veille&&!S.finished&&!S.acq){S.t--;ch=true;if(S.t<=0)autoEvac('temporisation écoulée sans acquittement');}
+  if(ch)render();
+},1000);
+function autoEvac(reason){
+  S.evac=true;S.evacT=300;log('Alarme générale automatique : '+reason+'.','err');
+  if(S.kind==='fr'){toast('Alarme générale partie toute seule. Sur feu confirmé, déclenche-la toi-même sans attendre.',true);S.errors++;step('evac');}
+  else if(cur!=='libre'){err('Évacuation automatique : '+reason+'. Tout le bâtiment évacue pour rien.');}
+  render();
+}
+
+/* actions */
+const ACT={
+  sonore(){ if(!S.buzzer){toast('Aucun signal sonore en cours sur le tableau.');return;} S.buzzer=false;log('Signaux sonores arrêtés.');step('sonore'); },
+  acq(){
+    if(!S.feu){toast('Aucun processus d\'alarme à acquitter.');return;}
+    if(S.acq){toast('Déjà acquitté.');return;}
+    if(S.evac||S.evacDone){toast('L\'alarme générale est déjà partie : plus rien à acquitter.');return;}
+    if(S.feuReel){err('Feu confirmé : on n\'acquitte pas. On fait évacuer et on alerte les secours.');return;}
+    if(S.niveau<2){toast('Acquittement refusé : sur ce tableau, il faut le niveau 2. Tape d\'abord le code AABC.',true);if(cur!=='libre')S.errors++;log('Acquittement tenté sans niveau 2.','err');return;}
+    if(S.ldd!=='done'&&cur!=='libre')err('Acquittement avant la levée de doute : tu stoppes la temporisation sans savoir s\'il y a un feu.');
+    S.acq=true;log('Processus acquitté : temporisation stoppée, pas d\'alarme générale.');step('acq');
+  },
+  veille(){ if(S.niveau<2){toast('Veille restreinte : niveau 2 requis (code AABC).');return;} S.veille=!S.veille;log('Veille restreinte '+(S.veille?'activée':'désactivée')+'.');if(S.veille&&cur!=='libre')err('Veille restreinte activée sans consigne : ce n\'est pas une façon de gérer une alarme.'); },
+  lamp(){ S.lamp=true;render();tone(2200,2.4,'square',.03);log('Essai des signalisations.');setTimeout(()=>{S.lamp=false;render();},2500); },
+  bilan(){ S.bilan=true;render();const ok=['VDF','CCF','PCF'].filter(k=>!S.das[k]&&!S.cmd[k]);
+    toast(ok.length===3?'Bilan : les 3 fonctions sont en position d\'attente, sans défaut.':'Bilan : '+(ok.length?ok.join(', ')+' OK, ':'')+['VDF','CCF','PCF'].filter(k=>!ok.includes(k)).join(', ')+' pas en attente.');
+    log('Bilan du CMSI.');setTimeout(()=>{S.bilan=false;render();},2500); },
+  rearm(){
+    if(S.hsMode){S.hsMode=false;S.sel=null;log('Sortie du mode en/hors service.');toast('Sortie du mode en/hors service.');return;}
+    const anyCmd=Object.values(S.cmd).some(Boolean);
+    if(!S.feu&&!S.evac&&!S.evacDone&&!anyCmd){toast(S.def?'Un dérangement ne se réarme pas : préviens le service technique.':'Rien à réarmer.');return;}
+    if(S.niveau<2){err('Réarmement refusé : passe d\'abord en niveau 2 avec le code.');return;}
+    if(!S.feu&&!S.evac&&!S.evacDone){S.cmd={VDF:false,CCF:false,PCF:false};S.buzzer=false;S.niveau=1;S.code='';log('Tableau réarmé : voyants Sécurité éteints. Réarmer maintenant les DAS sur le terrain.','good');toast('Réarmé. Les DAS restent à réarmer sur le terrain (voyant jaune clignotant).');return;}
+    if(S.feuReel){err('Feu confirmé : on ne réarme pas. On fait évacuer et on alerte les secours.');return;}
+    if(S.ldd!=='done'){err('Pas de réarmement sans levée de doute sur place.');return;}
+    if(!S.acq&&!S.evac&&!S.evacDone){err('Acquitte d\'abord le processus, ensuite seulement réarmement.');return;}
+    if(S.dm){err('Le DM est encore enfoncé : réarme-le d\'abord à la clé, sinon l\'alarme repart.');return;}
+    if(S.cause){err('Le détecteur est toujours en alarme : la cause n\'a pas disparu.');return;}
+    S.feu=null;S.evac=false;S.evacDone=false;S.acq=false;S.buzzer=false;S.niveau=1;S.code='';S.cmd={VDF:false,CCF:false,PCF:false};
+    log('Tableau réarmé, retour en niveau 1. Ça ne suffit pas : il reste à réarmer les dispositifs sur le terrain.','good');
+    toast('Tableau réarmé. Reste les portes coupe-feu sur le terrain.');step('rearm');
+  },
+  ldd(){
+    if(S.def&&!S.feu){toast('Un dérangement se lit au tableau, pas besoin de levée de doute : préviens le service technique.');return;}
+    if(!S.feu){toast('Aucune alarme : rien à vérifier.');return;}
+    if(S.ldd==='cours'){toast('Levée de doute en cours…');return;}
+    if(S.ldd==='done'){toast('Levée de doute déjà faite.');return;}
+    S.ldd='cours';const z=ZONES[S.feu-1];log('Levée de doute en cours : '+z.label+'.');toast('Tu pars vérifier sur place…');render();
+    setTimeout(()=>{
+      if(S.ldd!=='cours')return;S.ldd='done';
+      const neg=S.kind!=='fr';
+      const msg=(cur!=='libre'&&run.ldd)?run.ldd:lddText(S.kind,z);
+      if(S.kind==='fr')S.feuReel=true;else if(S.kind==='fa')S.cause=false;
+      log(msg,neg?'good':'err');S.lddMsg=msg;S.lddNeg=neg;
+      toast(msg,!neg,6500);
+      $('#brief').insertAdjacentHTML('beforeend',`<div class="ldd-res ${neg?'neg':'pos'}">${msg}</div>`);
+      step('ldd');render();
+    },5000);
+  },
+  dmkey(){ if(!S.dm){toast('Aucun déclencheur manuel enfoncé.');return;} if(S.ldd!=='done'){err('Tu réarmes un DM sans avoir fait la levée de doute.');} S.dm=false;S.cause=false;log('DM réarmé : clé insérée sous le boîtier, la vitre est remontée.');step('dmkey'); },
+  appel(){
+    if(S.appel){toast('Les secours sont déjà prévenus.');return;}
+    if(S.feuReel){S.appel=true;log('Appel 18 : message d\'alerte transmis.','good');step('appel');return;}
+    if(S.feu&&S.ldd!=='done'){toast('Selon les consignes du site, l\'appel peut se faire dès le doute. Ici, fais d\'abord la levée de doute.');return;}
+    if(cur!=='libre'&&(S.kind==='fa'||S.kind==='dm')&&S.ldd==='done'){err('Levée de doute négative : pas de raison d\'engager les pompiers.');return;}
+    toast('Aucune situation ne justifie un appel aux secours.');
+  },
+  accueil(){ if(!S.appel){err('Les secours n\'ont pas été appelés.');return;} log('Secours accueillis et guidés jusqu\'au sinistre.','good');step('accueil'); },
+  tech(){
+    if(!S.def){toast('Aucun dérangement à signaler.');return;}
+    const d=DEFS[S.def];log('Service technique prévenu : '+d.msg);step('tech');
+    setTimeout(()=>{S.def=null;S.defZone=null;S.buzzer=false;log(d.fix,'good');render();},7000);
+  },
+  dasreset(){
+    if(S.feu||S.evac||S.evacDone||Object.values(S.cmd).some(Boolean)){err('Le tableau commande encore les DAS : réarme d\'abord le tableau (niveau 2), ensuite les DAS sur le terrain.');return;}
+    if(!S.das.VDF&&!S.das.CCF&&!S.das.PCF){toast('Les DAS sont déjà en position d\'attente.');return;}
+    S.das={VDF:false,CCF:false,PCF:false};log('Portes coupe-feu ramenées contre leur ventouse (« clac »), DAS en position d\'attente.');step('das');
+  },
+  mc(){ log('Compte rendu fait et noté en main courante.');step('mc'); }
+};
+function doAct(a){ac();if(ACT[a]){ACT[a]();render();}}
+
+/* mobile views */
+function setView(v){$('#simBody').dataset.view=v;$$('#hud .seg button').forEach(b=>b.setAttribute('aria-selected',b.dataset.view===v));}
+$('#hud .seg').addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(!b)return;setView(b.dataset.view);toTop();});
+function toTop(){const sb=$('#simBody'),hud=$('#hud');const y=sb.getBoundingClientRect().top+window.scrollY-hud.offsetHeight-4;window.scrollTo(0,Math.max(0,y));}
+function isMobile(){return window.matchMedia('(max-width:640px)').matches;}
+
+/* mode examen */
+function setExam(on){examMode=on;$('#examBtn').setAttribute('aria-pressed',on);$('#t-sim').classList.toggle('exam',on);
+  if(on&&explain){explain=false;$('#explainBtn').setAttribute('aria-pressed',false);$('#kara').classList.remove('explain');}
+  renderSteps();renderHud();}
+$('#examBtn').onclick=()=>{setExam(!examMode);toast(examMode?'Mode examen : pas de fiche, pas de compte à rebours, pas d\'état des DAS. Lis le tableau.':'Mode examen désactivé : les aides sont de retour.');};
+
+/* panel clicks (with explain mode) */
+let explain=false;
+$('#explainBtn').onclick=e=>{if(examMode){toast('Désactive le mode examen pour utiliser le mode explication.');return;}explain=!explain;e.currentTarget.setAttribute('aria-pressed',explain);$('#kara').classList.toggle('explain',explain);$('#aesBox').classList.toggle('explain',explain);toast(explain?'Touche un élément du tableau pour savoir à quoi il sert.':'Mode explication désactivé.');};
+$('#aesBox').addEventListener('click',()=>{if(explain){const [t,b]=INFO.aes;sheet(t,b);}});
+$('#kara').addEventListener('click',e=>{
+  if(explain){const el=e.target.closest('[data-info]');if(el&&INFO[el.dataset.info]){const [t,b]=INFO[el.dataset.info];sheet(t,b);}return;}
+  const a=e.target.closest('[data-act]');if(a){doAct(a.dataset.act);return;}
+  const k=e.target.closest('[data-key]');if(k){keyPress(k.dataset.key);return;}
+  const d=e.target.closest('[data-das]');if(d){ac();const x=d.dataset.das;if(S.cmd[x]){toast(x+' déjà commandé.');return;}cmdDas(x);if(!S.feu)S.buzzer=true;log('Commande manuelle '+x+' (UCMC) : mise en sécurité.');render();return;}
+  const z=e.target.closest('[data-zone]');if(z){const n=+z.dataset.zone;
+    if(S.feu===n){toast('Zone en alarme : '+ZONES[n-1].label+' ('+ZONES[n-1].type+').');log('Zone identifiée : '+ZONES[n-1].label+'.');step('zone');}
+    else if(S.def==='boucle'&&S.defZone===n){toast('Défaut sur la boucle '+n+' ('+ZONES[n-1].label+') : la zone n\'est plus surveillée.');log('Défaut identifié : boucle '+n+'.');step('ident');}
+    else if(S.hs.has(n)){toast('Boucle '+n+' hors service : elle ne détecte plus.');}
+    else if(ZONES[n-1].label){toast('Cette boucle n\'est pas en alarme.');}
+    return;}
+  const s=e.target.closest('[data-id]');if(s){const id=s.dataset.id;
+    const d=S.def&&DEFS[S.def];
+    if(d&&d.led===id){toast(d.msg);log('Défaut identifié : '+id.replace('def','défaut ')+'.');step('ident');}
+    else if(id==='defgen'&&S.def){toast('Défaut général : regarde quel autre voyant jaune est allumé.');}
+    else if(id==='hs'&&S.hs.size){toast('Hors service : boucle(s) '+[...S.hs].join(', ')+'.');}
+  }
+});
+$('#actGrid').addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(a)doAct(a.dataset.act);});
+
+function keyPress(k){
+  if(S.niveau>=2){
+    if(!S.hsMode){
+      if(k==='B'){S.hsMode=true;S.sel=1;log('Mode en/hors service : curseur sur la boucle 1.');}
+      else toast('Niveau '+S.niveau+' actif. Touche B pour le mode en/hors service des boucles.');
+      render();return;
+    }
+    if(k==='A')S.sel=S.sel<=1?8:S.sel-1;
+    else if(k==='C')S.sel=S.sel>=8?1:S.sel+1;
+    else{
+      if(S.hs.has(S.sel)){S.hs.delete(S.sel);log('Boucle '+S.sel+' remise en service.','good');toast('Boucle '+S.sel+' remise en service.');}
+      else{S.hs.add(S.sel);log('Boucle '+S.sel+' mise HORS SERVICE : la zone n\'est plus surveillée.','err');toast('Boucle '+S.sel+' hors service. Pense à la remettre en service après les travaux.');if(cur!=='libre')err('Mise hors service d\'une boucle pendant un scénario : la zone n\'est plus surveillée.');}
+    }
+    render();return;
+  }
+  S.code+=k;
+  if(S.code.length>=4){
+    if(S.code==='AABC'){S.niveau=2;log('Accès niveau 2.');step('n2');toast('Niveau 2 actif.');}
+    else if(S.code==='AACC'){S.niveau=3;log('Accès niveau 3 (techniciens).');step('n2');toast('Niveau 3 : réservé aux techniciens (essais, paramétrage). À l\'examen, le niveau 2 suffit.');}
+    else{toast('Code erroné.',true);log('Code erroné.','err');}
+    S.code='';
+  }
+  render();
+}
+
+/* evac hold 3 s */
+(function(){
+  const b=$('#evacBtn'),f=$('#evacFill');let t0=0,raf=0;
+  function down(e){if(explain)return;e.preventDefault();ac();t0=performance.now();tick();}
+  function tick(){const p=Math.min(1,(performance.now()-t0)/3000);f.style.height=(p*100)+'%';if(p>=1){up();fire();return;}raf=requestAnimationFrame(tick);}
+  function up(){cancelAnimationFrame(raf);f.style.height='0';t0=0;}
+  function fire(){
+    if(S.evac){toast('Alarme générale déjà en cours.');return;}
+    if(S.evacDone&&S.feu){toast('Le signal d\'évacuation a déjà sonné 5 minutes.');}
+    S.evac=true;S.evacT=300;log('Évacuation générale déclenchée manuellement : signal pendant 5 minutes.','err');
+    if((S.kind==='fa'||S.kind==='dm')&&S.ldd==='done'&&cur!=='libre')err('Évacuation lancée alors que la levée de doute est négative.');
+    else if(S.kind==='fr'&&!S.feuReel&&cur!=='libre')log('Évacuation avant confirmation : acceptable si le doute est sérieux.');
+    step('evac');render();
+  }
+  b.addEventListener('pointerdown',down);
+  ['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,()=>{if(t0){up();if(!S.evac)toast('Maintiens 3 secondes pour déclencher.');}}));
+  b.addEventListener('contextmenu',e=>e.preventDefault());
+})();
+
+/* ---------- sound ---------- */
+let AC=null,muted=false;
+function ac(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();}catch(e){}return AC;}
+function tone(f,d,type,vol){if(muted||!AC)return;try{const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;const t=AC.currentTime;g.gain.setValueAtTime(vol,t);g.gain.setValueAtTime(0,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.02);}catch(e){}}
+let beat=0;
+const iv2=setInterval(()=>{
+  if(!host.isConnected){clearInterval(iv2);try{AC&&AC.close();}catch(e){}return;}
+  beat++;
+  if(S.evac){tone(554,.1,'sine',.09);setTimeout(()=>tone(440,.38,'sine',.09),100);}
+  else if(S.buzzer){if(S.def&&!S.feu){if(beat%4===0)tone(1800,.12,'square',.03);}else tone(2200,.18,'square',.03);}
+},500);
+$('#muteBtn').onclick=e=>{muted=!muted;e.currentTarget.setAttribute('aria-pressed',muted);e.currentTarget.textContent=muted?'Remettre le son':'Couper le son';};
+
+startScen('libre');
+
+/* ================= SCHEMAS ================= */
+let rev=false;
+$('#revBtn').onclick=e=>{rev=!rev;e.currentTarget.setAttribute('aria-pressed',rev);$('#schemes').classList.toggle('hidden-mode',rev);$$('#schemes .box[data-a]').forEach(b=>b.classList.remove('shown'));};
+$('#revReset').onclick=()=>$$('#schemes .box[data-a]').forEach(b=>b.classList.remove('shown'));
+$('#schemes').addEventListener('click',e=>{if(!rev)return;const b=e.target.closest('.box[data-a]');if(b)b.classList.toggle('shown');});
+
+const SIGLES=[['SSI','Système de Sécurité Incendie'],['SDI','Système de Détection Incendie'],['SMSI','Système de Mise en Sécurité Incendie'],['ECS','Équipement de Contrôle et de Signalisation'],['CMSI','Centralisateur de Mise en Sécurité Incendie'],['DAI','Détecteur Automatique d\'Incendie'],['DM','Déclencheur Manuel'],['AES','Alimentation Électrique de Sécurité'],['US','Unité de Signalisation'],['UCMC','Unité de Commande Manuelle Centralisée'],['UGA','Unité de Gestion d\'Alarme'],['UGCIS','Unité de Gestion Centralisée des Issues de Secours'],['DAS','Dispositif Actionné de Sécurité'],['ZDA','Zone de Détection Automatique'],['ZDM','Zone de Détection Manuelle'],['ZC','Zone de Compartimentage'],['ZF','Zone de Désenfumage'],['ZA','Zone d\'Alarme'],['ZS','Zone de mise en Sécurité'],['VDF','Volet De Désenfumage'],['CCF','Clapet Coupe-Feu'],['PCF','Porte Coupe-Feu'],['BAES','Bloc Autonome d\'Éclairage de Sécurité'],['BDIS','Boîtier de Déverrouillage d\'Issue de Secours (vert)'],['PCS','Poste Central de Sécurité']];
+let sig=SIGLES.slice();
+function renderFlash(){$('#flash').innerHTML=sig.map(([a,b])=>`<button class="fc"><b>${a}</b><span>${b}</span></button>`).join('');}
+renderFlash();
+$('#flash').addEventListener('click',e=>{const c=e.target.closest('.fc');if(c)c.classList.toggle('open');});
+$('#fcShuffle').onclick=()=>{sig=shuffle(sig);renderFlash();};
+$('#fcClose').onclick=()=>$$('#flash .fc').forEach(c=>c.classList.remove('open'));
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ================= RONDE ================= */
+const RONDE=[
+  ['Une porte coupe-feu est bloquée en position ouverte par une cale.','Retirer la cale, vérifier que la porte se referme bien seule, rappeler la consigne aux occupants, noter en main courante.'],
+  ['Un extincteur manque à son emplacement.','Le chercher à proximité (utilisé ? déplacé ?), le remettre en place ou le faire remplacer, prévenir la hiérarchie, noter en main courante.'],
+  ['Le manomètre d\'un extincteur est dans le rouge, ou la goupille / le plomb est absent.','Considérer l\'extincteur comme hors d\'usage : le signaler pour remplacement, noter en main courante.'],
+  ['Des cartons encombrent une issue de secours.','Dégager immédiatement le passage, prévenir le responsable du service concerné, noter en main courante.'],
+  ['Une issue de secours est verrouillée alors que le public est présent.','La déverrouiller si possible, sinon prévenir immédiatement la hiérarchie. C\'est une anomalie grave.'],
+  ['Un BAES est éteint ou son voyant de contrôle indique un défaut.','Signaler au service technique, noter en main courante avec l\'emplacement exact.'],
+  ['Un détecteur de fumée est recouvert d\'un sachet plastique.','Le signaler (souvent laissé après des travaux), le faire retirer, noter en main courante. La zone n\'est plus surveillée.'],
+  ['Un déclencheur manuel est caché derrière du mobilier.','Dégager l\'accès, prévenir le responsable, noter en main courante.'],
+  ['L\'accès à un RIA ou à un extincteur est encombré.','Dégager l\'accès, rappeler la consigne, noter en main courante.'],
+  ['Un local technique qui doit rester fermé est ouvert.','Vérifier qu\'il n\'y a personne ni anomalie à l\'intérieur, refermer, signaler, noter en main courante.'],
+  ['Pendant une évacuation, une issue de secours à ventouse reste verrouillée.','Utiliser le BDIS, le boîtier vert juste à côté de la porte, pour la déverrouiller sur place. Signaler ensuite le défaut de l\'UGCIS.'],
+  ['Quelqu\'un te demande la différence entre le boîtier rouge et le boîtier vert près d\'une porte.','Le rouge est un DM : il signale un feu au SDI. Le vert est un BDIS : il déverrouille seulement l\'issue de secours, sans déclencher d\'alarme.'],
+  ['Odeur de brûlé dans un couloir.','Rechercher l\'origine (levée de doute), donner l\'alerte si feu, appliquer la procédure incendie du site.'],
+  ['Fumée qui sort sous la porte d\'un local.','Ne pas ouvrir en grand : toucher la porte, donner l\'alerte, faire évacuer la zone, appeler le 18, attaquer le feu seulement si c\'est sans danger et avec le bon extincteur.'],
+  ['Une personne fait un malaise pendant ta ronde.','Protéger, alerter (15 ou 18 / 112), secourir selon ta formation, faire guider les secours.'],
+  ['Fuite d\'eau importante dans un local technique.','Isoler la zone, couper l\'arrivée si tu sais où et que c\'est sans danger (attention à l\'électricité), prévenir le service technique, noter en main courante.']
+];
+let rOrder=RONDE.map((_,i)=>i),rState={};
+function renderRonde(){
+  $('#rcards').innerHTML=rOrder.map(i=>{const [q,a]=RONDE[i];const st=rState[i]||'';return `<div class="rc ${st}" data-r="${i}"><p class="q">${q}</p><div class="a" ${st?'':'hidden'}>${a}</div><div class="btns">${st?'':'<button class="tbtn" data-r-act="show">Voir la réponse</button>'}${st===''&&false?'':''}</div></div>`}).join('');
+  $$('#rcards .rc').forEach(card=>{
+    const i=+card.dataset.r;
+    if(!rState[i]&&card.querySelector('.a').hidden===false){}
+  });
+  const k=Object.values(rState).filter(x=>x==='know').length,ag=Object.values(rState).filter(x=>x==='again').length;
+  $('#rscore').textContent=`${k} su${k>1?'s':''}, ${ag} à revoir, ${RONDE.length-k-ag} restant${RONDE.length-k-ag>1?'s':''}`;
+}
+$('#rcards').addEventListener('click',e=>{
+  const b=e.target.closest('[data-r-act]');if(!b)return;const card=b.closest('.rc');const i=+card.dataset.r;
+  if(b.dataset.rAct==='show'){card.querySelector('.a').hidden=false;card.querySelector('.btns').innerHTML='<button class="tbtn" data-r-act="know">Je savais</button><button class="tbtn" data-r-act="again">À revoir</button>';}
+  else{rState[i]=b.dataset.rAct;store.set('ssiap1c_terrain_ronde',rState);renderRonde();}
+});
+$('#rShuffle').onclick=()=>{rOrder=shuffle(rOrder);renderRonde();};
+$('#rReset').onclick=()=>{rState={};store.set('ssiap1c_terrain_ronde',rState);renderRonde();};
+rState=store.get('ssiap1c_terrain_ronde')||{};
+renderRonde();
+
+/* ================= ALERTE ================= */
+const NUMS=[['18','Pompiers'],['112','Numéro d\'urgence européen'],['15','SAMU'],['17','Police, gendarmerie'],['114','Urgence par SMS (personnes qui ne peuvent pas parler ou entendre)'],['3624','SOS Médecins'],['197','Alerte attentat (Vigipirate)']];
+$('#nums').innerHTML=NUMS.map(([n,l])=>`<button class="num"><b>${n}</b><span>${l}</span></button>`).join('');
+$('#nums').addEventListener('click',e=>{const c=e.target.closest('.num');if(c)c.classList.toggle('open');});
+
+}
+return {mount};
+})();
+</script>
 <script>
 const META = window.SSIAP_META || [];
 const DATA = window.SSIAP_MODULES || {};
@@ -986,6 +1565,14 @@ function home(){
   for(let i=0;i<EXAM_N;i++){const v=last&&last.r?last.r[i]:undefined;sheet+=`<i class="${v===1?"r":v===0?"w":""}"></i>`}
   if(last){const v=Math.round(last.c/last.n*200)/10;cap=`Dernier examen : <b class="num">${n20txt(v)}/20</b>, le ${new Date(last.d).toLocaleDateString("fr-FR",{day:"numeric",month:"long"})}.`}
 
+  const offL=officialExamList();let offOk=0;offL.forEach(q=>{const s=st[q.id];if(s&&s.last===1)offOk++});
+  const offRow=offL.length?`<section class="block">
+    <h3>Questions d'examen officiel</h3>
+    <p class="sub">Les QCM projetés en salle, avec la correction du formateur.</p>
+    <div class="modes">
+      <button class="mode wide" id="go-offexam"><span class="n num">${offL.length}</span><span class="tt">S'entraîner sur les questions officielles</span><span class="s num">${offOk}/${offL.length} maîtrisées</span></button>
+    </div>
+  </section>`:"";
   const ses=load(KEY_SES,null);
   const sesOk=ses&&Array.isArray(ses.items)&&ses.items.length&&ses.items.every(x=>BY_ID[x.id]);
   const resume=sesOk?`<div class="resume"><div><b>Reprendre : ${esc(ses.label)}</b><small class="num">${ses.master.length}/${ses.total} réussies</small></div>
@@ -1027,10 +1614,11 @@ function home(){
       <button class="btn" id="go-exam" ${nAll?"":"disabled"}>Commencer l'examen</button>
     </div>
   </section>
+  ${offRow}
   <section class="block">
     <h3>Tout réviser</h3>
     <div class="modes">
-      <button class="mode" id="go-off" ${nOff?"":"disabled"}><span class="n num">${nOff}</span><span class="tt">Toutes les questions</span><span class="s">Les 9 modules, sans le complément</span></button>
+      <button class="mode" id="go-off" ${nOff?"":"disabled"}><span class="n num">${nOff}</span><span class="tt">Toutes les questions</span><span class="s">Les ${META.filter(m=>!m.complement).length} modules, sans le complément</span></button>
       <button class="mode" id="go-all" ${nComp?"":"disabled"}><span class="n num">${nAll}</span><span class="tt">Questions + complément</span><span class="s">Avec les ${nComp} questions en plus</span></button>
       <button class="mode wide" id="go-err" ${errs?"":"disabled"}><span class="n num">${errs}</span><span class="tt">Revoir mes erreurs</span><span class="s">${errs?"Les questions ratées la dernière fois":"Rien à revoir pour l'instant"}</span></button>
     </div>
@@ -1051,6 +1639,12 @@ function home(){
         <input type="date" id="exam-date" value="${esc(SET.exam)}"></div>
     </div>
   </section>
+  <section class="block">
+    <h3>Épreuve pratique</h3>
+    <div class="modes">
+      <button class="mode wide" id="go-terrain"><span class="n">SSI</span><span class="tt">Terrain : le tableau du site</span><span class="s">Simulateur de l'ECS/CMSI, schémas SDI/SMSI, ronde et message d'alerte</span></button>
+    </div>
+  </section>
   <p class="foot">En révision, la bonne réponse s'affiche tout de suite et une question ratée revient jusqu'à ce que tu la réussisses. En cas de doute, c'est le cours de ton formateur qui fait foi.<br>
   <button id="reset">Effacer ma progression</button></p>`,true);
 
@@ -1060,6 +1654,8 @@ function home(){
   document.getElementById("go-off").onclick=startOfficial;
   document.getElementById("go-all").onclick=startEverything;
   document.getElementById("go-err").onclick=startErrors;
+  document.getElementById("go-terrain").onclick=showTerrain;
+  if(document.getElementById("go-offexam"))document.getElementById("go-offexam").onclick=startOffExam;
   document.getElementById("chip").onclick=()=>{const i=document.getElementById("exam-date");i.scrollIntoView({block:"center",behavior:"smooth"});setTimeout(()=>{i.focus();if(i.showPicker)try{i.showPicker()}catch(e){}},350)};
   if(sesOk){document.getElementById("resume").onclick=()=>resumeSession(ses);document.getElementById("drop").onclick=()=>{drop(KEY_SES);home()}}
   app.querySelectorAll("[data-size]").forEach(b=>b.onclick=()=>{SET.size=+b.dataset.size;saveSet();applySize();
@@ -1071,10 +1667,27 @@ function home(){
     drop(KEY_STATS);drop(KEY_EX);drop(KEY_SES);drop(KEY_DAY);home()};
 }
 
+/* ---------- Épreuve pratique : Terrain ---------- */
+function showTerrain(){
+  S=null;stopAll();armed=false;confirmOpen=false;
+  paint(`<header class="brand"><h1>Terrain</h1><button class="chip" id="terrain-back">Accueil</button></header>
+  <p class="terrain-intro">La partie pratique après le QCM : le tableau SSI de la salle en simulateur, les schémas, la ronde et l'alerte, d'après les explications du moniteur.</p>
+  <div id="terrain"></div>`,true);
+  document.getElementById("terrain-back").onclick=home;
+  if(window.TerrainSSI)window.TerrainSSI.mount(document.getElementById("terrain"));
+}
+
 /* ---------- Lancement ---------- */
-function startModule(id){const m=metaOf(id);train(shuffle(QS.filter(q=>q.mod===id)),m.complement?"Complément":"Module "+id+" : "+(m.short||m.title),{kind:"module",id})}
+function startModule(id){const m=metaOf(id);train(shuffle(QS.filter(q=>q.mod===id)),m.complement?"Complément":id==="OF"?"Questions d'examen officiel":"Module "+id+" : "+(m.short||m.title),{kind:"module",id})}
 function startOfficial(){train(shuffle(OFFICIAL),"Toutes les questions",{kind:"official"})}
 function startEverything(){train(shuffle(QS),"Questions + complément",{kind:"everything"})}
+function officialExamList(){
+  const d=DATA.OF;if(!d||!Array.isArray(d.questions))return [];
+  const out=[],ids=new Set();
+  d.questions.forEach(r=>{if(!r||!Array.isArray(r.o))return;const id=hash(r.q+"|"+[...r.o].sort().join("|"));const q=BY_ID[id];if(q&&!ids.has(id)){ids.add(id);out.push(q)}});
+  return out;
+}
+function startOffExam(){const l=officialExamList();if(l.length)train(shuffle(l),"Questions d'examen officiel",{kind:"offexam"})}
 function startErrors(){const ids=errorIds();if(ids.length)train(shuffle(ids.map(id=>BY_ID[id])),"Mes erreurs",{kind:"errors"})}
 function startSmart(){
   const st=load(KEY_STATS,{});
@@ -1087,7 +1700,7 @@ function startSmart(){
 function restart(src){
   const k=src&&src.kind;
   if(k==="module")startModule(src.id);else if(k==="official")startOfficial();else if(k==="everything")startEverything();
-  else if(k==="errors")startErrors();else if(k==="smart")startSmart();else if(k==="exam")startExam();else home();
+  else if(k==="errors")startErrors();else if(k==="smart")startSmart();else if(k==="exam")startExam();else if(k==="offexam")startOffExam();else home();
 }
 function drawExam(){
   const pool=OFFICIAL.length?OFFICIAL:QS,by={};
@@ -1149,7 +1762,7 @@ function showTrain(top){
   <div class="bar-top"><button class="quit" id="quit">Accueil</button><span class="where num"><b>${S.master.size}</b>/${S.total} réussies</span><span class="clock num" id="clock">${clockTxt()}</span></div>
   <div class="prog"><span style="width:${S.master.size/S.total*100}%"></span></div>
   ${tired?`<div class="pause" id="pause"><span>Ça fait ${PAUSE_MIN} minutes d'affilée. Une pause de 5 minutes aide à mieux retenir.</span><button id="pause-ok">C'est noté</button></div>`:""}
-  <p class="qmeta"><span>${m.complement?"Complément":"Module "+esc(q.mod)}</span><span>${multi?"Plusieurs réponses possibles":"Une seule réponse"}${it.retry?", deuxième essai":""}</span>${S.combo>=3?`<span class="streak num">${S.combo} de suite</span>`:""}</p>
+  <p class="qmeta"><span>${m.complement?"Complément":q.mod==="OF"?"Examen officiel":"Module "+esc(q.mod)}</span><span>${multi?"Plusieurs réponses possibles":"Une seule réponse"}${it.retry?", deuxième essai":""}</span>${S.combo>=3?`<span class="streak num">${S.combo} de suite</span>`:""}</p>
   <h2 class="qtext">${esc(q.q)}</h2>
   ${optionsHtml(it,it.done)}
   ${fb}
