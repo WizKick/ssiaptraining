@@ -122,6 +122,9 @@ button:disabled{cursor:default}
 .set{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border-top:1px solid var(--line);font-size:15.5px}
 .set:first-child{border-top:0}
 .set small{display:block;color:var(--mute);font-size:13px}
+.sound-buttons{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.sound-buttons .chip{font-size:12px;padding:0 10px;min-height:34px}
+.sound-preview{flex-wrap:wrap}
 .seg{display:flex;background:var(--s2);border-radius:999px;padding:3px;flex:none}
 .seg button{min-width:42px;height:34px;border-radius:999px;display:grid;place-items:center;color:var(--mute);font-weight:700}
 .seg button[aria-pressed="true"]{background:var(--hi);color:var(--on-hi)}
@@ -1554,9 +1557,32 @@ function same(a,b){return [...a].sort().join()===[...b].sort().join()}
 function dayKey(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 
 /* ---------- Réglages ---------- */
-const SET=Object.assign({size:1,exam:""},load(KEY_SET,{}));
+const SET=Object.assign({size:1,sound:true,exam:""},load(KEY_SET,{}));
 delete SET.auto;
 function saveSet(){save(KEY_SET,SET)}
+let feedbackAudio=null,feedbackMaster=null;
+async function playResultSound(color){
+  if(!SET.sound)return;
+  if(color==="orange")color="red";
+  const melodies={green:[[784,0,.12],[988,.1,.12],[1175,.2,.18]],red:[[220,0,.18],[147,.17,.23]]};
+  const notes=melodies[color];if(!notes)return;
+  try{
+    const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;
+    if(!feedbackAudio){feedbackAudio=new Audio();feedbackMaster=feedbackAudio.createGain();feedbackMaster.connect(feedbackAudio.destination)}
+    if(feedbackAudio.state==="suspended")await feedbackAudio.resume();
+    if(!SET.sound)return;
+    feedbackMaster.gain.setValueAtTime(1,feedbackAudio.currentTime);
+    const start=feedbackAudio.currentTime+.01;
+    notes.forEach(([frequency,delay,duration])=>{
+      const oscillator=feedbackAudio.createOscillator(),gain=feedbackAudio.createGain(),at=start+delay;
+      oscillator.type=color==="red"?"triangle":"sine";
+      oscillator.frequency.setValueAtTime(frequency,at);
+      gain.gain.setValueAtTime(0,at);gain.gain.linearRampToValueAtTime(.12,at+.008);gain.gain.exponentialRampToValueAtTime(.001,at+duration);
+      oscillator.connect(gain);gain.connect(feedbackMaster);oscillator.start(at);oscillator.stop(at+duration+.015);
+      oscillator.onended=()=>{oscillator.disconnect();gain.disconnect()};
+    });
+  }catch(e){}
+}
 function applySize(){document.documentElement.className=SET.size>1?"t"+SET.size:""}
 applySize();
 function daysLeft(){
@@ -1720,6 +1746,8 @@ function home(){
       <div class="set"><span>Taille du texte</span><div class="seg" role="group" aria-label="Taille du texte">
         ${[1,2,3].map(n=>`<button class="a${n}" data-size="${n}" aria-pressed="${SET.size===n}" aria-label="Taille ${n}">A</button>`).join("")}</div></div>
       <div class="set"><span>Question suivante<small>Après la correction, clique pour continuer à ton rythme</small></span><span>Manuel</span></div>
+      <div class="set"><span>Effets sonores<small>Un son pour le vert ; le même son pour orange et rouge</small></span><button class="sw" id="quiz-sound" role="switch" aria-checked="${!!SET.sound}" aria-label="Effets sonores"></button></div>
+      <div class="set sound-preview"><span>Écouter les sons</span><div class="sound-buttons"><button class="chip green" data-sound="green">✓ Vert</button><button class="chip orange" data-sound="orange">◐ Orange</button><button class="chip red" data-sound="red">✕ Rouge</button></div></div>
       <div class="set"><label for="exam-date">Date de l'examen<small>Pour le compte à rebours et l'objectif du jour</small></label>
         <input type="date" id="exam-date" value="${esc(SET.exam)}"></div>
     </div>
@@ -1750,6 +1778,8 @@ function home(){
   app.querySelectorAll("[data-size]").forEach(b=>b.onclick=()=>{SET.size=+b.dataset.size;saveSet();applySize();
     app.querySelectorAll("[data-size]").forEach(x=>x.setAttribute("aria-pressed",String(+x.dataset.size===SET.size)))});
   document.getElementById("exam-date").onchange=e=>{SET.exam=e.target.value;saveSet();const y=window.scrollY;home();window.scrollTo(0,y)};
+  document.getElementById("quiz-sound").onclick=e=>{SET.sound=!SET.sound;saveSet();e.currentTarget.setAttribute("aria-checked",String(SET.sound));if(!SET.sound&&feedbackMaster)feedbackMaster.gain.setValueAtTime(0,feedbackAudio.currentTime)};
+  app.querySelectorAll("[data-sound]").forEach(button=>button.onclick=()=>playResultSound(button.dataset.sound));
   const r=document.getElementById("reset");
   r.onclick=()=>{if(!resetArmed){resetArmed=true;r.textContent="Confirmer : tout effacer";r.style.color="var(--bad)";return}
     drop(KEY_STATS);drop(KEY_EX);drop(KEY_SES);drop(KEY_DAY);drop(KEY_PDF_HISTORY);home()};
@@ -1949,6 +1979,7 @@ function pickTrain(oi){
 function validateTrain(){
   const it=S.items[S.i];if(!it.sel.length||it.done)return;
   it.done=true;it.ok=same(it.q.a,it.sel);record(it.q,it.ok);
+  playResultSound(it.q.mod==="OF2026"?pdfColor(it.q,it.sel):it.ok?"green":"red");
   if(it.q.mod==="OF2026"&&!it.retry){const stats=load(KEY_STATS,{});stats[it.q.id].pdfColor=pdfColor(it.q,it.sel);save(KEY_STATS,stats)}
   if(it.ok){S.master.add(it.q.id);S.combo++}
   else{S.combo=0;S.items.splice(S.i+1,0,{q:it.q,order:optionOrder(it.q),sel:[],done:false,ok:false,retry:true})}
