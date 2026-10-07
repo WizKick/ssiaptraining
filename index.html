@@ -1717,7 +1717,7 @@ function home(){
     <div class="settings">
       <div class="set"><span>Taille du texte</span><div class="seg" role="group" aria-label="Taille du texte">
         ${[1,2,3].map(n=>`<button class="a${n}" data-size="${n}" aria-pressed="${SET.size===n}" aria-label="Taille ${n}">A</button>`).join("")}</div></div>
-      <div class="set"><span>Passer à la suite après une bonne réponse<small>La correction reste affichée quand tu te trompes</small></span>
+      <div class="set"><span>Passer à la suite après une bonne réponse<small>Correction affichée 4 secondes ; passage manuel en cas d’erreur</small></span>
         <button class="sw" id="auto" role="switch" aria-checked="${SET.auto}" aria-label="Passage automatique"></button></div>
       <div class="set"><label for="exam-date">Date de l'examen<small>Pour le compte à rebours et l'objectif du jour</small></label>
         <input type="date" id="exam-date" value="${esc(SET.exam)}"></div>
@@ -1937,7 +1937,7 @@ function showTrain(top){
   ${nav?`<div class="act">${nav}</div>`:""}`,top);
   app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pickTrain(+b.dataset.oi));
   const v=document.getElementById("validate");if(v)v.onclick=validateTrain;
-  const n=document.getElementById("next");if(n){n.onclick=nextTrain;n.focus({preventScroll:true});const f=app.querySelector(".fb");if(f&&f.scrollIntoView&&!(it.ok&&SET.auto))f.scrollIntoView({block:"nearest",behavior:"smooth"})}
+  const n=document.getElementById("next");if(n){n.onclick=nextTrain;n.focus({preventScroll:true});const f=app.querySelector(".fb");if(f&&f.scrollIntoView)f.scrollIntoView({block:"nearest",behavior:"smooth"})}
   const p=document.getElementById("pause-ok");if(p)p.onclick=()=>{S.brk=Date.now();showTrain(false)};
   document.getElementById("quit").onclick=home;
 }
@@ -1953,7 +1953,7 @@ function validateTrain(){
   if(it.ok){S.master.add(it.q.id);S.combo++}
   else{S.combo=0;S.items.splice(S.i+1,0,{q:it.q,order:optionOrder(it.q),sel:[],done:false,ok:false,retry:true})}
   persist();showTrain(false);
-  if(it.ok&&SET.auto){clearTimeout(autoT);autoT=setTimeout(()=>{if(S&&S.mode==="train"&&S.items[S.i]===it)nextTrain()},700)}
+  if(it.ok&&SET.auto){clearTimeout(autoT);autoT=setTimeout(()=>{if(S&&S.mode==="train"&&S.items[S.i]===it)nextTrain()},4000)}
 }
 function nextTrain(){clearTimeout(autoT);if(S.i>=S.items.length-1)finishTrain();else{S.i++;persist();showTrain(true)}}
 function finishTrain(){
