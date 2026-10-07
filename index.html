@@ -160,12 +160,13 @@ input[type=date]{background:var(--s2);border:1px solid var(--line-2);border-radi
 @media (hover:hover) and (pointer:fine){.key{display:block}}
 .opt.sel{border-color:var(--hi);background:var(--s2)}
 .opt.sel .mk{background:var(--hi);border-color:var(--hi);color:var(--on-hi)}
-.opt.good{background:var(--hi);border-color:var(--hi);color:var(--on-hi)}
-.opt.good .mk{background:var(--on-hi);border-color:var(--on-hi);color:var(--hi)}
-.opt.good .key{color:#777}
-.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
-.opt.bad .txt{text-decoration:line-through;text-decoration-color:var(--bad);color:var(--dim)}
-.opt.bad .mk{border-color:var(--bad);background:var(--bad);color:#000}
+.opt.good{background:#22c55e;border-color:#22c55e;color:#031b0b}
+.opt.good .mk{background:#031b0b;border-color:#031b0b;color:#22c55e}
+.opt.good .key{color:#134e25}
+.opt.bad{border-color:#dc2626;background:#dc2626;color:#fff}
+.opt.bad .txt{text-decoration:line-through;text-decoration-color:#fff;color:#fff}
+.opt.bad .mk{border-color:#fff;background:#fff;color:#dc2626}
+.opt.bad .key{color:#fff}
 .opt.dim{opacity:.4}
 .opt:disabled{cursor:default}
 .fb{margin-top:16px;border-radius:14px;padding:14px 16px;background:var(--s1);border:1px solid var(--line)}
@@ -260,7 +261,7 @@ a.cell{text-decoration:none}
 .pdf-answer{border-top:1px solid var(--line);padding:10px 16px 16px}
 .pdf-options{list-style:none;padding:0;margin:0;font-size:15px}
 .pdf-options li{display:flex;gap:10px;padding:8px 10px;margin:4px 0;border-radius:8px;color:var(--dim)}
-.pdf-options .pdf-correct{background:var(--s3);color:var(--hi);font-weight:700}
+.pdf-options .pdf-correct{background:#22c55e;color:#031b0b;font-weight:700}
 .pdf-source{font-size:12px;margin:10px 0 0}
 
 /* ---------- Suivi OFFICIEL 2026 ---------- */
@@ -1553,7 +1554,8 @@ function same(a,b){return [...a].sort().join()===[...b].sort().join()}
 function dayKey(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 
 /* ---------- Réglages ---------- */
-const SET=Object.assign({size:1,auto:true,exam:""},load(KEY_SET,{}));
+const SET=Object.assign({size:1,exam:""},load(KEY_SET,{}));
+delete SET.auto;
 function saveSet(){save(KEY_SET,SET)}
 function applySize(){document.documentElement.className=SET.size>1?"t"+SET.size:""}
 applySize();
@@ -1602,7 +1604,7 @@ function streak(){
 /* ---------- Rendu ---------- */
 const app=document.getElementById("app");
 function paint(html,top){app.innerHTML=html;if(top&&window.scrollTo)window.scrollTo(0,0)}
-let S=null,tick=null,armed=false,resetArmed=false,confirmOpen=false,autoT=null,wake=null;
+let S=null,tick=null,armed=false,resetArmed=false,confirmOpen=false,wake=null;
 async function keepAwake(on){
   try{
     if(on&&!wake&&navigator.wakeLock){wake=await navigator.wakeLock.request("screen");wake.addEventListener("release",()=>{wake=null})}
@@ -1610,7 +1612,7 @@ async function keepAwake(on){
   }catch(e){}
 }
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&S)keepAwake(true)});
-function stopAll(){clearInterval(tick);clearTimeout(autoT);keepAwake(false)}
+function stopAll(){clearInterval(tick);keepAwake(false)}
 
 /* ---------- Accueil ---------- */
 function home(){
@@ -1717,8 +1719,7 @@ function home(){
     <div class="settings">
       <div class="set"><span>Taille du texte</span><div class="seg" role="group" aria-label="Taille du texte">
         ${[1,2,3].map(n=>`<button class="a${n}" data-size="${n}" aria-pressed="${SET.size===n}" aria-label="Taille ${n}">A</button>`).join("")}</div></div>
-      <div class="set"><span>Passer à la suite après une bonne réponse<small>Correction affichée 4 secondes ; passage manuel en cas d’erreur</small></span>
-        <button class="sw" id="auto" role="switch" aria-checked="${SET.auto}" aria-label="Passage automatique"></button></div>
+      <div class="set"><span>Question suivante<small>Après la correction, clique pour continuer à ton rythme</small></span><span>Manuel</span></div>
       <div class="set"><label for="exam-date">Date de l'examen<small>Pour le compte à rebours et l'objectif du jour</small></label>
         <input type="date" id="exam-date" value="${esc(SET.exam)}"></div>
     </div>
@@ -1748,7 +1749,6 @@ function home(){
   if(sesOk){document.getElementById("resume").onclick=()=>resumeSession(ses);document.getElementById("drop").onclick=()=>{drop(KEY_SES);home()}}
   app.querySelectorAll("[data-size]").forEach(b=>b.onclick=()=>{SET.size=+b.dataset.size;saveSet();applySize();
     app.querySelectorAll("[data-size]").forEach(x=>x.setAttribute("aria-pressed",String(+x.dataset.size===SET.size)))});
-  const sw=document.getElementById("auto");sw.onclick=()=>{SET.auto=!SET.auto;saveSet();sw.setAttribute("aria-checked",String(SET.auto))};
   document.getElementById("exam-date").onchange=e=>{SET.exam=e.target.value;saveSet();const y=window.scrollY;home();window.scrollTo(0,y)};
   const r=document.getElementById("reset");
   r.onclick=()=>{if(!resetArmed){resetArmed=true;r.textContent="Confirmer : tout effacer";r.style.color="var(--bad)";return}
@@ -1953,9 +1953,8 @@ function validateTrain(){
   if(it.ok){S.master.add(it.q.id);S.combo++}
   else{S.combo=0;S.items.splice(S.i+1,0,{q:it.q,order:optionOrder(it.q),sel:[],done:false,ok:false,retry:true})}
   persist();showTrain(false);
-  if(it.ok&&SET.auto){clearTimeout(autoT);autoT=setTimeout(()=>{if(S&&S.mode==="train"&&S.items[S.i]===it)nextTrain()},4000)}
 }
-function nextTrain(){clearTimeout(autoT);if(S.i>=S.items.length-1)finishTrain();else{S.i++;persist();showTrain(true)}}
+function nextTrain(){if(S.i>=S.items.length-1)finishTrain();else{S.i++;persist();showTrain(true)}}
 function finishTrain(){
   const pdfEntry=pdfSnapshot(true);
   drop(KEY_SES);stopAll();
