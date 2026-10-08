@@ -1806,7 +1806,7 @@ function showTerrain(){
 /* ---------- Lancement ---------- */
 function startPDF2026(){train(PDF2026.slice(),"OFFICIEL 2026 · ordre du PDF",{kind:"pdf2026"})}
 function startPDF2026Random(){train(shuffle(PDF2026),"OFFICIEL 2026 · aléatoire",{kind:"pdf2026random"})}
-function isPDFSession(){return !!(S&&S.mode==="train"&&["pdf2026","pdf2026random"].includes(S.src.kind))}
+function isPDFSession(){return !!(S&&S.mode==="train"&&["pdf2026","pdf2026random","pdf2026review"].includes(S.src.kind))}
 function pdfColor(q,selected){
   if(same(q.a,selected))return "green";
   return selected.some(i=>q.a.includes(i))?"orange":"red";
@@ -1832,7 +1832,7 @@ function pdfSnapshot(completed=false){
   if(!isPDFSession())return null;
   const results=pdfSessionResults(),counts=pdfCounts(results,S.total);
   if(counts.unseen===S.total)return null;
-  const entry={id:S.sessionId,d:S.sessionDate||S.start,updated:Date.now(),mode:S.src.kind==="pdf2026random"?"random":"ordered",total:S.total,counts,results,completed,duration:Date.now()-S.start,mastered:S.master.size};
+  const entry={id:S.sessionId,d:S.sessionDate||S.start,updated:Date.now(),mode:S.src.kind==="pdf2026review"?"review":S.src.kind==="pdf2026random"?"random":"ordered",sourceSessionId:S.src.sourceSessionId||null,total:S.total,counts,results,completed,duration:Date.now()-S.start,mastered:S.master.size};
   const history=load(KEY_PDF_HISTORY,[]),index=history.findIndex(x=>x.id===entry.id);
   if(index<0)history.push(entry);else history[index]=entry;
   save(KEY_PDF_HISTORY,history);
@@ -1842,17 +1842,35 @@ function pdfSessionPanel(){
   const results=pdfSessionResults(),counts=pdfCounts(results,S.total);
   return `<div class="pdf-session-panel">${pdfCounters(counts,"Cette session · résultats au premier essai")}<p class="pdf-live-note num">${S.total-counts.unseen}/${S.total} questions évaluées · ${S.master.size}/${S.total} réussies après correction</p><details class="pdf-map"><summary>Voir les ${S.total} résultats par question</summary>${pdfGrid(results,S.items[S.i].q.n)}</details></div>`;
 }
-function pdfModeLabel(mode){return mode==="timed30"?"Examen 30 · objectif 20/20":mode==="random"?"Aléatoire":"Ordre du PDF"}
+function pdfModeLabel(mode){return mode==="review"?"Révision · orange et rouge":mode==="timed30"?"Examen 30 · objectif 20/20":mode==="random"?"Aléatoire":"Ordre du PDF"}
 function pdfHistoryPreview(){
   const history=load(KEY_PDF_HISTORY,[]);
   if(!history.length)return `<p class="pdf-history-empty">Ton historique apparaîtra dès ta première réponse validée.</p>`;
   return `<div class="pdf-history-preview">${history.slice(-3).reverse().map(h=>`<div class="pdf-mini-session"><span>${pdfModeLabel(h.mode)}<small>${new Date(h.d).toLocaleString("fr-FR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})} · ${h.mode==="timed30"&&h.completed?n20txt(h.score20)+"/20 · "+(h.passed?"Validé":"Non validé"):h.completed?"Terminée":"Partielle"}</small></span><span class="pdf-mini-scores num"><b class="green">✓ ${h.counts.green}</b><b class="orange">◐ ${h.counts.orange}</b><b class="red">✕ ${h.counts.red}</b></span></div>`).join("")}</div>`;
 }
+function pdfReviewQuestions(h){
+  const seen=new Set();
+  return (h.results||[]).filter(r=>r.color==="orange"||r.color==="red").map(r=>PDF2026.find(q=>q.n===r.n)).filter(q=>q&&!seen.has(q.id)&&seen.add(q.id));
+}
+function pdfReviewButton(h){
+  const count=pdfReviewQuestions(h).length;
+  return count?`<div class="act"><button class="btn" data-pdf-review="${esc(h.id)}">Retravailler les orange et rouges (${count})</button></div><p class="pdf-source">Une nouvelle session avec uniquement ces ${count} questions. Le test d’origine reste conservé.</p>`:"";
+}
+function bindPDFReviewButtons(){
+  app.querySelectorAll("[data-pdf-review]").forEach(b=>b.onclick=()=>startPDFReview(b.dataset.pdfReview));
+}
+function startPDFReview(sessionId){
+  const h=load(KEY_PDF_HISTORY,[]).find(h=>h.id===sessionId);
+  if(!h)return;
+  const list=pdfReviewQuestions(h);
+  if(!list.length)return;
+  train(list,"OFFICIEL 2026 · révision orange et rouge · "+list.length+" questions",{kind:"pdf2026review",sourceSessionId:h.id});
+}
 function pdfHistoryCard(h,previous,activeId){
   const answered=h.total-h.counts.unseen,pct=answered?Math.round(h.counts.green/answered*100):0;
   const delta=h.completed&&previous?Math.round(h.counts.green/h.total*100)-Math.round(previous.counts.green/previous.total*100):null;
   const progress=delta===null?"":`<p class="pdf-trend num">${delta>0?"+":""}${delta} points de réussite face à ta précédente session complète dans ce mode.</p>`;
-  return `<details class="pdf-history-card"><summary><span><b>${pdfModeLabel(h.mode)}</b><small>${new Date(h.d).toLocaleString("fr-FR")} · ${h.completed?"Terminée":h.id===activeId?"En cours / à reprendre":"Interrompue"} · ${answered}/${h.total} évaluées</small></span><span class="pdf-mini-scores num"><b class="green">✓ ${h.counts.green}</b><b class="orange">◐ ${h.counts.orange}</b><b class="red">✕ ${h.counts.red}</b></span></summary><div class="pdf-history-body">${pdfCounters(h.counts,"Résultats au premier essai",h.mode==="timed30"?"Erreurs / délai":"Sans bon choix")}<p class="num">${pct} % entièrement correctes sur les ${answered} questions évaluées${h.mode==="timed30"?" · "+n20txt(Math.round(h.counts.green/h.total*200)/10)+"/20"+(h.completed?" · "+(h.passed?"Validé":"Non validé"):""):h.completed?" · "+h.mastered+"/"+h.total+" réussies après correction":""}.</p>${progress}<p class="pdf-source">Les nombres ci-dessous sont les numéros du PDF, affichés dans l’ordre de cette session.</p>${pdfGrid(h.results)}${h.results.some(r=>r.color&&r.color!=="green")?`<div class="pdf-history-corrections"><h4>Questions à retravailler au premier essai</h4>${h.results.filter(r=>r.color&&r.color!=="green").map(r=>{const q=PDF2026.find(q=>q.n===r.n);return `<details><summary><span class="${r.color}">${r.color==="orange"?"◐":"✕"} Q${r.n}</span> ${esc(q.q)}</summary><div>${r.timedOut?'<p class="red">Temps écoulé : réponse non validée dans la minute.</p>':""}<p>Ton choix : ${esc((r.selected||[]).map(i=>q.o[i]).join(" · ")||"Non enregistré")}</p><p>Correction : <b>${esc(q.a.map(i=>q.o[i]).join(" · "))}</b></p></div></details>`}).join("")}</div>`:""}</div></details>`;
+  return `<details class="pdf-history-card"><summary><span><b>${pdfModeLabel(h.mode)}</b><small>${new Date(h.d).toLocaleString("fr-FR")} · ${h.completed?"Terminée":h.id===activeId?"En cours / à reprendre":"Interrompue"} · ${answered}/${h.total} évaluées</small></span><span class="pdf-mini-scores num"><b class="green">✓ ${h.counts.green}</b><b class="orange">◐ ${h.counts.orange}</b><b class="red">✕ ${h.counts.red}</b></span></summary><div class="pdf-history-body">${pdfCounters(h.counts,"Résultats au premier essai",h.mode==="timed30"?"Erreurs / délai":"Sans bon choix")}<p class="num">${pct} % entièrement correctes sur les ${answered} questions évaluées${h.mode==="timed30"?" · "+n20txt(Math.round(h.counts.green/h.total*200)/10)+"/20"+(h.completed?" · "+(h.passed?"Validé":"Non validé"):""):h.completed?" · "+h.mastered+"/"+h.total+" réussies après correction":""}.</p>${progress}${pdfReviewButton(h)}<p class="pdf-source">Les nombres ci-dessous sont les numéros du PDF, affichés dans l’ordre de cette session.</p>${pdfGrid(h.results)}${h.results.some(r=>r.color&&r.color!=="green")?`<div class="pdf-history-corrections"><h4>Questions à retravailler au premier essai</h4>${h.results.filter(r=>r.color&&r.color!=="green").map(r=>{const q=PDF2026.find(q=>q.n===r.n);return `<details><summary><span class="${r.color}">${r.color==="orange"?"◐":"✕"} Q${r.n}</span> ${esc(q.q)}</summary><div>${r.timedOut?'<p class="red">Temps écoulé : réponse non validée dans la minute.</p>':""}<p>Ton choix : ${esc((r.selected||[]).map(i=>q.o[i]).join(" · ")||"Non enregistré")}</p><p>Correction : <b>${esc(q.a.map(i=>q.o[i]).join(" · "))}</b></p></div></details>`}).join("")}</div>`:""}</div></details>`;
 }
 function showPDFHistory(){
   if(isPDFSession())persist();
@@ -1860,8 +1878,9 @@ function showPDFHistory(){
   S=null;stopAll();
   const history=load(KEY_PDF_HISTORY,[]),active=load(KEY_SES,null),timed=load(KEY_PDF_TIMED,null),previous={};
   const cards=history.map(h=>{const card=pdfHistoryCard(h,previous[h.mode],h.mode==="timed30"?timed&&timed.sessionId:active&&active.sessionId);if(h.completed)previous[h.mode]=h;return card}).reverse();
-  paint(`<header class="brand"><h1>Historique 2026</h1><button class="chip" id="pdf-history-back">Accueil</button></header><p class="pdf-intro">Tes entraînements de 216 questions et examens de 30 questions. Les premiers résultats sont conservés. Compare les sessions complètes d’un même mode pour mesurer tes progrès.</p>${pdfCounters(pdfCounts(pdfGlobalResults()),"Maîtrise actuelle · dernier premier essai par question")}<p class="pdf-source">Vert : tous les bons choix, sans erreur. Orange : au moins un bon choix, mais réponse incomplète ou choix en trop. Rouge : aucun bon choix. Gris : non évaluée.</p><section class="pdf-history-list">${cards.join("")||'<p class="pdf-history-empty">Aucune session pour le moment. Lance ton premier entraînement.</p>'}</section>`,true);
+  paint(`<header class="brand"><h1>Historique 2026</h1><button class="chip" id="pdf-history-back">Accueil</button></header><p class="pdf-intro">Tes entraînements de 216 questions, examens de 30 questions et révisions ciblées. Ouvre un test puis clique sur « Retravailler les orange et rouges ». Les premiers résultats sont conservés. Compare les sessions complètes d’un même mode pour mesurer tes progrès.</p>${pdfCounters(pdfCounts(pdfGlobalResults()),"Maîtrise actuelle · dernier premier essai par question")}<p class="pdf-source">Vert : tous les bons choix, sans erreur. Orange : au moins un bon choix, mais réponse incomplète ou choix en trop. Rouge : aucun bon choix. Gris : non évaluée.</p><section class="pdf-history-list">${cards.join("")||'<p class="pdf-history-empty">Aucune session pour le moment. Lance ton premier entraînement.</p>'}</section>`,true);
   document.getElementById("pdf-history-back").onclick=home;
+  bindPDFReviewButtons();
 }
 function readPDF2026(){
   S=null;stopAll();armed=false;confirmOpen=false;
@@ -1902,7 +1921,7 @@ function startSmart(){
 function restart(src){
   const k=src&&src.kind;
   if(k==="module")startModule(src.id);else if(k==="official")startOfficial();else if(k==="everything")startEverything();
-  else if(k==="pdf2026")startPDF2026();else if(k==="pdf2026random")startPDF2026Random();else if(k==="errors")startErrors();else if(k==="smart")startSmart();else if(k==="exam")startExam();else if(k==="offexam")startOffExam();else home();
+  else if(k==="pdf2026")startPDF2026();else if(k==="pdf2026random")startPDF2026Random();else if(k==="pdf2026review")startPDFReview(src.sourceSessionId);else if(k==="errors")startErrors();else if(k==="smart")startSmart();else if(k==="exam")startExam();else if(k==="offexam")startOffExam();else home();
 }
 function drawExam(){
   const pool=OFFICIAL.length?OFFICIAL:QS,by={};
@@ -2008,11 +2027,12 @@ function finishTrain(){
     <div class="score num">${c}<small>/${N}</small></div>
     <span class="verdict ${pct>=60?"":"ko"}">${pct>=60?"Bon niveau":"À retravailler"}</span>
     <p class="sum">${bonnes(c)} du premier coup, soit ${pct} %, en ${time}. Toutes les questions sont maintenant réussies.</p>
-    ${pdfEntry?pdfCounters(pdfEntry.counts,"Bilan de session · premier essai")+pdfGrid(pdfEntry.results):""}
+    ${pdfEntry?pdfCounters(pdfEntry.counts,"Bilan de session · premier essai")+pdfGrid(pdfEntry.results)+pdfReviewButton(pdfEntry):""}
     ${wrong.length?`<section class="corr"><h3>Ratées au premier essai</h3>${wrong.map((x,k)=>corrItem(x,k+1)).join("")}</section>`:""}
     <div class="act"><button class="btn" id="again">${src.kind==="smart"?"Encore "+SMART_N+" questions":"Recommencer"}</button><button class="btn ghost" id="home">Accueil</button>${pdfEntry?'<button class="btn ghost" id="result-pdf-history">Historique 2026</button>':""}</div>
   </div>`,true);
   if(pdfEntry)document.getElementById("result-pdf-history").onclick=showPDFHistory;
+  bindPDFReviewButtons();
   document.getElementById("again").onclick=()=>restart(src);
   document.getElementById("home").onclick=home;
 }
@@ -2100,9 +2120,10 @@ function finishPDFTimed(){
   if(!S||S.mode!=="pdftimed"||S.items.some(it=>!it.done))return;
   const entry=pdfTimedSnapshot(true),items=S.items.slice();drop(KEY_PDF_TIMED);stopAll();S=null;
   const wrong=items.filter(it=>!it.ok);
-  paint(`<div class="res"><p class="lbl">OFFICIEL 2026 · Examen de 30 questions</p><div class="score num">${n20txt(entry.score20)}<small>/20</small></div><span class="verdict ${entry.passed?"":"ko"}">${entry.passed?"✓ Validé · sans-faute":"Non validé · objectif 20/20"}</span><p class="sum num">${entry.counts.green}/30 entièrement correctes. ${entry.passed?"Les 30 questions ont été réussies dans leur délai.":"Une réponse partielle, incorrecte ou hors délai empêche la validation."}</p>${pdfCounters(entry.counts,"Bilan de l’examen · premier essai","Erreurs / délai")}${pdfGrid(entry.results)}${wrong.length?`<section class="corr"><h3>Questions à retravailler</h3>${wrong.map(it=>`<details><summary><span class="q num ${it.color}">Q${it.q.n}</span><span>${esc(it.q.q)}</span></summary><div class="in">${it.timedOut?'<p class="red">Temps écoulé : réponse non validée dans la minute.</p>':""}<p class="you">Ton choix : ${esc(it.sel.map(i=>it.q.o[i]).join(" · ")||"Aucune réponse")}</p>${optionsHtml(it,true)}</div></details>`).join("")}</section>`:""}<div class="act"><button class="btn" id="pdf-timed-again">Nouveau tirage de 30</button><button class="btn ghost" id="pdf-timed-history">Historique 2026</button><button class="btn ghost" id="pdf-timed-home">Accueil</button></div></div>`,true);
+  paint(`<div class="res"><p class="lbl">OFFICIEL 2026 · Examen de 30 questions</p><div class="score num">${n20txt(entry.score20)}<small>/20</small></div><span class="verdict ${entry.passed?"":"ko"}">${entry.passed?"✓ Validé · sans-faute":"Non validé · objectif 20/20"}</span><p class="sum num">${entry.counts.green}/30 entièrement correctes. ${entry.passed?"Les 30 questions ont été réussies dans leur délai.":"Une réponse partielle, incorrecte ou hors délai empêche la validation."}</p>${pdfCounters(entry.counts,"Bilan de l’examen · premier essai","Erreurs / délai")}${pdfGrid(entry.results)}${pdfReviewButton(entry)}${wrong.length?`<section class="corr"><h3>Questions à retravailler</h3>${wrong.map(it=>`<details><summary><span class="q num ${it.color}">Q${it.q.n}</span><span>${esc(it.q.q)}</span></summary><div class="in">${it.timedOut?'<p class="red">Temps écoulé : réponse non validée dans la minute.</p>':""}<p class="you">Ton choix : ${esc(it.sel.map(i=>it.q.o[i]).join(" · ")||"Aucune réponse")}</p>${optionsHtml(it,true)}</div></details>`).join("")}</section>`:""}<div class="act"><button class="btn" id="pdf-timed-again">Nouveau tirage de 30</button><button class="btn ghost" id="pdf-timed-history">Historique 2026</button><button class="btn ghost" id="pdf-timed-home">Accueil</button></div></div>`,true);
   document.getElementById("pdf-timed-again").onclick=startPDFTimed;
   document.getElementById("pdf-timed-history").onclick=showPDFHistory;
+  bindPDFReviewButtons();
   document.getElementById("pdf-timed-home").onclick=home;
 }
 
