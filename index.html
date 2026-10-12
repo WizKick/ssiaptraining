@@ -311,6 +311,31 @@ a.cell{text-decoration:none}
 .pdf-history-corrections p{font-size:12px;color:var(--dim)}
 @media(max-width:480px){.pdf-history-card>summary{flex-wrap:wrap}.pdf-mini-scores{gap:8px}.pdf-counters{gap:5px}.pdf-count strong{font-size:19px}.pdf-count{padding:10px 6px}.pdf-count span{font-size:10px}}
 .pdf-timed-rule{font-size:13px;color:var(--dim);margin:0 0 12px;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px}
+
+/* ---------- Examen pratique (oral) ---------- */
+.pr-hint{color:var(--mute);font-size:14.5px;margin:0 0 14px}
+.pr-reveal{width:100%;margin-top:6px}
+.pr-answer{background:var(--s1);border:1px solid var(--line-2);border-radius:14px;padding:16px;margin-top:6px}
+.pr-answer .pr-p,.pr-answer .pr-li,.pr-answer .pr-li2{font-size:var(--o);line-height:1.5;color:var(--text);margin:0 0 8px}
+.pr-answer .pr-h{margin:14px 0 6px;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.pr-answer .pr-h:first-child{margin-top:0}
+.pr-answer .pr-li{position:relative;padding-left:18px}
+.pr-answer .pr-li::before{content:"•";position:absolute;left:4px;color:var(--mute)}
+.pr-answer .pr-li2{position:relative;padding-left:34px;color:var(--dim)}
+.pr-answer .pr-li2::before{content:"–";position:absolute;left:20px;color:var(--mute)}
+.pr-answer>:last-child{margin-bottom:0}
+.pr-ask{font-size:13px;color:var(--mute);margin:14px 0 8px}
+.pr-grades{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pr-grade{min-height:60px;border-radius:14px;border:1.5px solid var(--line-2);background:var(--s2);font-weight:800;font-size:14px;line-height:1.2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:8px 4px;color:var(--text)}
+.pr-grade b{font-size:19px;line-height:1}
+.pr-grade small{font-size:11.5px;font-weight:600;color:var(--dim)}
+.pr-grade.g{background:#10271b;border-color:#2e7650;color:var(--pdf-green)}
+.pr-grade.o{background:#2d2112;border-color:#8a6230;color:var(--pdf-orange)}
+.pr-grade.r{background:#2d1515;border-color:#8b4040;color:var(--pdf-red)}
+.pr-grade:active{transform:scale(.98)}
+.pr-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line-2);border-radius:999px;padding:2px 9px;color:var(--dim)}
+.pr-sum{margin:6px 0 0;font-size:14px;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -1645,7 +1670,7 @@ function stopAll(){clearInterval(tick);keepAwake(false)}
 
 /* ---------- Accueil ---------- */
 function home(){
-  S=null;stopAll();armed=false;resetArmed=false;confirmOpen=false;
+  S=null;if(typeof PR!=="undefined")PR=null;stopAll();armed=false;resetArmed=false;confirmOpen=false;
   const st=load(KEY_STATS,{}),exams=load(KEY_EX,[]),errs=errorIds().length,days=load(KEY_DAY,{});
   const nOff=OFFICIAL.length,nAll=QS.length,nComp=nAll-nOff;
   let mastered=0,seen=0;OFFICIAL.forEach(q=>{const s=st[q.id];if(s){seen++;if(s.last===1)mastered++}});
@@ -1757,9 +1782,15 @@ function home(){
         <input type="date" id="exam-date" value="${esc(SET.exam)}"></div>
     </div>
   </section>
-  <section class="block">
+  <section class="block" id="pratique">
     <h3>Épreuve pratique</h3>
+    <p class="sub">Les ${PRATIQUE.length} questions orales du jury, avec les réponses attendues. Dis ta réponse à voix haute, puis compare.</p>
+    ${pdfCounters(prCounts(),"Maîtrise des questions orales · dernier premier essai","À revoir")}
     <div class="modes">
+      <button class="mode wide" id="go-prat"><span class="n num">${PRATIQUE.length}</span><span class="tt">S'entraîner à l'oral</span><span class="s">Dans l'ordre du PDF · réponse masquée, auto-évaluation vert / orange / rouge</span></button>
+      <button class="mode wide" id="go-prat-rand"><span class="n">↝</span><span class="tt">S'entraîner en aléatoire</span><span class="s">Les ${PRATIQUE.length} questions, mélangées à chaque séance</span></button>
+      <button class="mode wide" id="go-prat-rev" ${prCounts().orange+prCounts().red?"":"disabled"}><span class="n num">${prCounts().orange+prCounts().red}</span><span class="tt">Revoir mes orange et rouges</span><span class="s">${prCounts().orange+prCounts().red?"Les questions à retravailler":"Rien à revoir pour l'instant"}</span></button>
+      <button class="mode wide" id="read-prat"><span class="n">Q/R</span><span class="tt">Lire les questions et réponses</span><span class="s">Les ${PRATIQUE.length} questions par chapitre, réponses repliables</span></button>
       <button class="mode wide" id="go-terrain"><span class="n">SSI</span><span class="tt">Terrain : le tableau du site</span><span class="s">Simulateur de l'ECS/CMSI, schémas SDI/SMSI, ronde et message d'alerte</span></button>
     </div>
   </section>
@@ -1780,6 +1811,10 @@ function home(){
   document.getElementById("go-all").onclick=startEverything;
   document.getElementById("go-err").onclick=startErrors;
   document.getElementById("go-terrain").onclick=showTerrain;
+  document.getElementById("go-prat").onclick=prOrdered;
+  document.getElementById("go-prat-rand").onclick=prRandom;
+  document.getElementById("go-prat-rev").onclick=prReview;
+  document.getElementById("read-prat").onclick=prRead;
   if(document.getElementById("go-offexam"))document.getElementById("go-offexam").onclick=startOffExam;
   document.getElementById("chip").onclick=()=>{const i=document.getElementById("exam-date");i.scrollIntoView({block:"center",behavior:"smooth"});setTimeout(()=>{i.focus();if(i.showPicker)try{i.showPicker()}catch(e){}},350)};
   if(sesOk){document.getElementById("resume").onclick=()=>resumeSession(ses);document.getElementById("drop").onclick=()=>{drop(KEY_SES);home()}}
@@ -1790,7 +1825,7 @@ function home(){
   app.querySelectorAll("[data-sound]").forEach(button=>button.onclick=()=>playResultSound(button.dataset.sound));
   const r=document.getElementById("reset");
   r.onclick=()=>{if(!resetArmed){resetArmed=true;r.textContent="Confirmer : tout effacer";r.style.color="var(--bad)";return}
-    drop(KEY_STATS);drop(KEY_EX);drop(KEY_SES);drop(KEY_DAY);drop(KEY_PDF_HISTORY);drop(KEY_PDF_TIMED);home()};
+    drop(KEY_STATS);drop(KEY_EX);drop(KEY_SES);drop(KEY_DAY);drop(KEY_PDF_HISTORY);drop(KEY_PDF_TIMED);drop(KEY_PRAT);home()};
 }
 
 /* ---------- Épreuve pratique : Terrain ---------- */
@@ -2226,6 +2261,175 @@ document.addEventListener("keydown",e=>{
   }else if(S.mode==="exam"&&e.key==="ArrowRight")go(S.i+1);
   else if(S.mode==="exam"&&e.key==="ArrowLeft")go(S.i-1);
 });
+
+/* ---------- Examen pratique : questions orales du PDF ---------- */
+const KEY_PRAT="ssiap1c_pratique";
+const PRATIQUE=[
+{id:"p1",ct:"Présentation et métier",q:"Présentez-vous !",a:["Je m'appelle Prénom et Nom et je suis là aujourd'hui pour passer l'examen de la formation SSIAP 1."]},
+{id:"p2",ct:"Présentation et métier",q:"Que veut dire SSIAP 1 ?",a:["Agent du Service Sécurité Incendie et d'Assistance à Personnes."]},
+{id:"p3",ct:"Présentation et métier",q:"Combien y a-t-il de niveaux de SSIAP ?",a:["3 niveaux :","- SSIAP 1 : agent du Service Sécurité Incendie et d'Assistance à Personnes","- SSIAP 2 : chef d'équipe du Service Sécurité Incendie et d'Assistance à Personnes","- SSIAP 3 : chef du Service Sécurité Incendie et d'Assistance à Personnes"]},
+{id:"p4",ct:"Présentation et métier",q:"Quel est l'arrêté qui réglemente ce métier ?",a:["L'arrêté du 02/05/2005 modifié."]},
+{id:"p5",ct:"Présentation et métier",q:"Quelles sont les conditions d'accès au métier de SSIAP 1 ?",a:["- Aptitude médicale","- SST à jour","- H0B0"]},
+{id:"p6",ct:"Présentation et métier",q:"Quelle est la durée de la formation ?",a:["10 jours, soit 70 heures."]},
+{id:"p7",ct:"Présentation et métier",q:"Où est-ce que votre diplôme vous autorise à travailler ?",a:["- ERP : Établissement Recevant du Public","- IGH : Immeuble de Grande Hauteur"]},
+{id:"p8",ct:"ERP",q:"Comment sont classés les ERP ?",a:["## Par type","L'activité exercée dans l'établissement.","## Par catégorie","La capacité d'accueil du public (5 catégories).","## Exemple","Un hôpital de 1500 personnes : c'est un ERP de type U et de 2e catégorie."]},
+{id:"p9",ct:"Prise de service",q:"Comment fait-on une prise de service ?",a:[
+ "## À l'extérieur du bâtiment",
+ "La prise de service commence à l'extérieur. On s'assure de :",
+ "- la vacuité des voies engins et échelles",
+ "- la vacuité des bouches et poteaux incendie",
+ "- la présence du plan d'intervention à l'entrée du bâtiment",
+ "## Une fois au PC Sécurité",
+ "- 1. Appel à l'astreinte : « Bonjour, c'est Monsieur XXXXX pour la prise de service SSIAP 1 de 7h à 19h à XXXXX (nom du site). »",
+ "- 2. Vérification du matériel : pour chaque élément, 3 critères : la présence, le nombre (quantité) et l'état de fonctionnement.",
+ "-- En cas d'absence, de manque de matériel ou de défaut de fonctionnement : on le signale sur la main courante.",
+ "-- Sauf pour les clés et badges : on vérifie d'abord s'il y a une traçabilité sur les registres correspondants.",
+ "- 3. Lecture des consignes journalières : l'ensemble des tâches prévues pour ma vacation (travaux, permis feu, interventions des entreprises extérieures…).",
+ "- 4. Contrôle du SSI :",
+ "-- a) On s'assure qu'il est sous tension (voyant vert sur ECS ou TS).",
+ "-- b) On s'assure qu'il n'y a pas d'autres voyants. Jaune fixe : dérangement, on le note sur la main courante et on avise le technicien. Jaune clignotant : défaut de position d'attente, on doit réarmer le DAS concerné.",
+ "-- c) On fait le test de signalisation, pour s'assurer du bon fonctionnement des voyants, de l'alarme restreinte et de l'écran.",
+ "- 5. Main courante : lecture de la main courante depuis le dernier jour de travail, ouverture de la main courante de la journée, et on note les anomalies constatées à la prise de service."]},
+{id:"p10",ct:"Le SSI",q:"Quelle est la définition du SSI ?",a:["C'est un ensemble de matériels qui collecte les informations sur les incendies, les traite et met en sécurité l'établissement."]},
+{id:"p11",ct:"Le SSI",q:"Combien y a-t-il de catégories de SSI ?",a:["5 catégories : A, B, C, D, E."]},
+{id:"p12",ct:"Le SSI",q:"Comment sont-ils classés ?",a:["Du plus sévère au moins sévère.","Le plus sévère est le SSI de catégorie A."]},
+{id:"p13",ct:"Le SSI",q:"Quelle est la différence entre le A et le B ?",a:["La présence des DAI dans le SSI A."]},
+{id:"p14",ct:"Le SSI",q:"Où est-ce qu'on trouve le SSI de catégorie A ?",a:["- Dans tous les IGH","- Dans les ERP de type « JOUR » (J, O, U, R)","- Ou bien dans les ERP avec locaux à sommeil"]},
+{id:"p15",ct:"Le SSI",q:"Quelles sont les différences entre le SSI A en ERP et le SSI A en IGH ?",a:[
+ "- Temporisation : pas de temporisation en IGH (en ERP, jusqu'à 5 min).",
+ "- DM : pas de DM en IGH, ils sont remplacés par des interphones pour éviter les abus.",
+ "- Alarme générale : en IGH, elle ne sonne que dans le compartiment sinistré (en ERP, dans l'ensemble du bâtiment).",
+ "- Ascenseurs : en IGH, non-arrêt des ascenseurs. Ils continuent de fonctionner et ne s'arrêtent pas au compartiment sinistré, contrairement à l'ERP où ils se mettent à l'arrêt."]},
+{id:"p16",ct:"Le SSI",q:"Quelles parties du SSI collectent, quelles parties traitent et quelles parties mettent le bâtiment en sécurité ?",a:["- Collecter : SDI, Système de Détection Incendie","- Traiter : CMSI, Centralisateur de Mise en Sécurité Incendie","- Mise en sécurité : DAS, Dispositif Actionné de Sécurité"]},
+{id:"p17",ct:"Le SSI",q:"Quelles sont les mises en sécurité gérées par le SSI ?",a:[
+ "## Le compartimentage (ZC)",
+ "Porte Coupe-Feu (PCF), Clapet Coupe-Feu (CCF).",
+ "## Le désenfumage (ZF - ZDF)",
+ "Volets, exutoire, ouvrant, coffret de relayage.",
+ "## L'évacuation (ZA)",
+ "Alarme générale, déverrouillage des issues de secours."]},
+{id:"p18",ct:"Le SSI",q:"Quels sont les voyants de l'Unité de Signalisation (US) ?",a:[
+ "- Vert : DAS en position d'attente.",
+ "- Jaune fixe : dérangement.",
+ "- Jaune clignotant : Défaut de Position d'Attente (DPA). Un DAS a quitté sa position d'attente : il faut le réarmer, c'est-à-dire le remettre en position d'attente.",
+ "- Rouge fixe : DAS en position de sécurité.",
+ "- Rouge clignotant : DAS en défaut de position de sécurité. Il faut actionner l'Unité de Commande Manuelle Centralisée (UCMC). Si ça ne fonctionne pas, aviser l'agent en levée de doute."]},
+{id:"p19",ct:"Ronde",q:"Quels sont les équipements pour la ronde ?",a:["- Émetteur-récepteur","- Pass général","- Contrôleur de ronde","- Gants","- Torche","- Feuille et stylo"]},
+{id:"p20",ct:"Ronde",q:"Quelles sont les missions pendant la ronde ?",a:["- S'assurer de la vacuité des dégagements","- Contrôler les moyens d'extinction","- Contrôler l'éclairage normal et l'éclairage de sécurité","- Relever les anomalies liées à la sécurité incendie"]},
+{id:"p21",ct:"Éclairage de sécurité",q:"Quels sont les différents types d'éclairage ?",a:["- Éclairage normal","- Éclairage de remplacement","- Éclairage de sécurité :","-- Éclairage d'ambiance (antipanique)","-- Éclairage d'évacuation"]},
+{id:"p22",ct:"Éclairage de sécurité",q:"Quelle est l'autonomie de l'éclairage de sécurité ?",a:["Minimum 1 h en ERP."]},
+{id:"p23",ct:"Éclairage de sécurité",q:"Quels sont les différents blocs d'éclairage ?",a:[
+ "- BAES : Bloc Autonome d'Éclairage de Sécurité. Autonome parce que chaque bloc est équipé de sa propre batterie.",
+ "- BAES SATI : Bloc Autonome d'Éclairage de Sécurité avec Système Automatique de Test Intégré :",
+ "-- Vert fixe : bloc OK",
+ "-- Vert clignotant : batterie en charge",
+ "-- Jaune fixe : batterie HS (technicien)",
+ "-- Jaune clignotant : défaut d'ampoule (SSIAP 1 avec H0B0)",
+ "- BES : Bloc d'Éclairage de Sécurité."]},
+{id:"p24",ct:"Extincteurs",q:"Comment contrôler un extincteur ?",a:[
+ "- 1. Il est présent, accroché et accessible.",
+ "- 2. Il correspond à la signalétique (l'agent extincteur et les classes de feu).",
+ "- 3. La goupille de sécurité et le scellé sont présents.",
+ "- 4. État général de l'extincteur : le corps et le flexible.",
+ "- 5. Date de la dernière vérification réglementaire : vérification quotidienne par les SSIAP et annuelle par une société agréée."]}
+];
+const PR_BY_ID=Object.fromEntries(PRATIQUE.map(q=>[q.id,q]));
+let PR=null;
+function prStats(){return load(KEY_PRAT,{})}
+function prCounts(res){const st=res||prStats(),c={green:0,orange:0,red:0,unseen:0};PRATIQUE.forEach(q=>{const v=st[q.id];if(v&&c[v]!==undefined)c[v]++;else c.unseen++});return c}
+function prAnswerHtml(q){
+  return q.a.map(l=>{
+    if(l.startsWith("## "))return `<p class="pr-h">${esc(l.slice(3))}</p>`;
+    if(l.startsWith("-- "))return `<p class="pr-li2">${esc(l.slice(3))}</p>`;
+    if(l.startsWith("- "))return `<p class="pr-li">${esc(l.slice(2))}</p>`;
+    return `<p class="pr-p">${esc(l)}</p>`;
+  }).join("");
+}
+function prStart(list,label){
+  if(!list.length)return;
+  S=null;stopAll();
+  PR={label,items:list.map(q=>({q,retry:false})),i:0,revealed:false,res:{}};
+  prShow(true);
+}
+function prShow(top){
+  const N=PR.items.length,it=PR.items[PR.i],q=it.q;
+  const done=Object.keys(PR.res).length,first=Object.keys(PR.res).filter(id=>PR.res[id]==="green").length;
+  const body=PR.revealed
+    ?`<div class="pr-answer">${prAnswerHtml(q)}</div>
+      <p class="pr-ask">Comment as-tu répondu à voix haute ?</p>
+      <div class="pr-grades">
+        <button class="pr-grade g" data-g="green"><b>✓</b>Je savais<small>1</small></button>
+        <button class="pr-grade o" data-g="orange"><b>◐</b>En partie<small>2</small></button>
+        <button class="pr-grade r" data-g="red"><b>✕</b>À revoir<small>3</small></button>
+      </div>`
+    :`<p class="pr-hint">Réponds à voix haute, comme devant le jury, puis affiche la réponse attendue.</p>
+      <button class="btn pr-reveal" id="pr-reveal">Afficher la réponse</button>`;
+  paint(`
+  <div class="bar-top"><button class="quit" id="pr-quit">Accueil</button><span class="where num"><b>${PR.i+1}</b>/${N}</span><span class="clock num">${first} ✓</span></div>
+  <div class="prog"><span style="width:${PR.i/N*100}%"></span></div>
+  <p class="qmeta"><span class="pr-tag">${esc(q.ct)}</span>${it.retry?'<span class="streak">Reprise</span>':''}<span>${esc(PR.label)}</span></p>
+  <h2 class="qtext">${esc(q.q)}</h2>
+  ${body}`,top);
+  document.getElementById("pr-quit").onclick=home;
+  const rv=document.getElementById("pr-reveal");if(rv)rv.onclick=prReveal;
+  app.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>prGrade(b.dataset.g));
+}
+function prReveal(){if(!PR||PR.revealed)return;PR.revealed=true;prShow(false);const a=app.querySelector(".pr-answer");if(a&&a.scrollIntoView)a.scrollIntoView({block:"nearest",behavior:"smooth"})}
+function prGrade(color){
+  if(!PR||!PR.revealed)return;
+  const it=PR.items[PR.i];
+  if(!it.retry){const st=prStats();st[it.q.id]=color;save(KEY_PRAT,st);PR.res[it.q.id]=color}
+  playResultSound(color);
+  if(color!=="green")PR.items.push({q:it.q,retry:true});
+  if(PR.i>=PR.items.length-1){prFinish();return}
+  PR.i++;PR.revealed=false;prShow(true);
+}
+function prFinish(){
+  const res=PR.res,label=PR.label,ids=Object.keys(res);
+  const c={green:0,orange:0,red:0,unseen:0};ids.forEach(id=>c[res[id]]++);
+  const weak=PRATIQUE.filter(q=>res[q.id]&&res[q.id]!=="green");
+  const list=weak.map(q=>`<details class="pdf-card"><summary><span class="pdf-number ${res[q.id]}">${res[q.id]==="orange"?"◐":"✕"}</span><span>${esc(q.q)}</span></summary><div class="pdf-answer">${prAnswerHtml(q)}</div></details>`).join("");
+  PR=null;
+  paint(`<header class="brand"><h1>Séance terminée</h1><button class="chip" id="pr-home">Accueil</button></header>
+  <p class="pr-sum num">${c.green} sur ${ids.length} sues du premier coup. ${label}</p>
+  ${pdfCounters(c,"Résultat de la séance · premier essai","À revoir")}
+  ${weak.length?`<section class="block"><h3>À retravailler</h3>${list}</section>`:`<p class="pr-hint" style="margin-top:20px">Sans faute sur cette séance. Continue comme ça, c'est exactement le niveau attendu devant le jury.</p>`}
+  <div class="act"><button class="btn" id="pr-again">Nouvelle séance aléatoire</button><button class="btn ghost" id="pr-home2">Accueil</button></div>`,true);
+  document.getElementById("pr-home").onclick=home;document.getElementById("pr-home2").onclick=home;
+  document.getElementById("pr-again").onclick=prRandom;
+}
+function prOrdered(){prStart(PRATIQUE.slice(),"Ordre du PDF")}
+function prRandom(){prStart(shuffle(PRATIQUE),"Aléatoire")}
+function prReview(){const st=prStats();prStart(PRATIQUE.filter(q=>st[q.id]&&st[q.id]!=="green"),"Révision · orange et rouge")}
+function prRead(){
+  S=null;stopAll();PR=null;
+  let sec="";
+  const chapters=[];
+  const cards=PRATIQUE.map((q,i)=>{
+    let h="";
+    if(q.ct!==sec){sec=q.ct;chapters.push(q.ct);h=`<h3 class="pdf-chapter" id="pr-ch-${chapters.length}">${esc(q.ct)}</h3>`}
+    return h+`<details class="pdf-card"><summary><span class="pdf-number num">Q${i+1}</span><span>${esc(q.q)}</span></summary><div class="pdf-answer">${prAnswerHtml(q)}</div></details>`;
+  }).join("");
+  paint(`<header class="brand"><h1>Examen pratique</h1><button class="chip" id="pr-back">Accueil</button></header>
+  <p class="pdf-intro">${PRATIQUE.length} questions orales et réponses attendues. Ouvre une question pour afficher sa réponse.</p>
+  <div class="pdf-tools"><button class="btn ghost" id="pr-expand">Tout afficher</button><button class="btn ghost" id="pr-collapse">Tout replier</button></div>
+  <nav class="pdf-chapters" aria-label="Chapitres">${chapters.map((c,k)=>`<a class="chip" href="#pr-ch-${k+1}">${esc(c)}</a>`).join("")}</nav>
+  <section class="pdf-list">${cards}</section>
+  <div class="act"><button class="btn" id="pr-train">S'entraîner</button><button class="btn ghost" id="pr-home">Accueil</button></div>
+  <p class="pdf-source">D'après la fiche « Questions examen pratique SSIAP 1 ». En cas de doute, c'est le cours de ton formateur qui fait foi.</p>`,true);
+  document.getElementById("pr-back").onclick=home;document.getElementById("pr-home").onclick=home;
+  document.getElementById("pr-train").onclick=prOrdered;
+  document.getElementById("pr-expand").onclick=()=>app.querySelectorAll("details.pdf-card").forEach(d=>d.open=true);
+  document.getElementById("pr-collapse").onclick=()=>app.querySelectorAll("details.pdf-card").forEach(d=>d.open=false);
+}
+document.addEventListener("keydown",e=>{
+  if(!PR||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(document.activeElement&&document.activeElement!==document.body)return;
+  if(!PR.revealed&&(e.key==="Enter"||e.key===" ")){e.preventDefault();prReveal()}
+  else if(PR.revealed){const m={"1":"green","2":"orange","3":"red"};if(m[e.key]){e.preventDefault();prGrade(m[e.key])}}
+});
+
+
 home();
 </script>
 </body>
